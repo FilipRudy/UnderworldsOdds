@@ -5,10 +5,11 @@ import {DefenceDodgeToggle} from "./DefenceDodgeToggle";
 import {DefenceShieldToggle} from "./DefenceShieldToggle";
 import {DefenceHalfSupportToggle} from "./DefenceHalfSupportToggle";
 import {DefenceFullSupportToggle} from "./DefenceFullSupportToggle";
+import {DefenceDiceAmount} from "./DefenceDiceAmount";
 
 export const DefenceSide = () => {
   return <div>
-    <DiceAmount />
+    <DefenceDiceAmount />
     <RerollAmount />
     <DefenceShieldToggle />
     <DefenceDodgeToggle />

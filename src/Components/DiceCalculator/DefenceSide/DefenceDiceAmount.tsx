@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../../Css/DiceAmount.css";
+import "../../../Css/DiceAmount.css";
 import {
     BsFillDiamondFill,
     BsFillDice1Fill,
@@ -9,7 +9,7 @@ import {
     BsFillDice5Fill, BsFillDice6Fill
 } from "react-icons/bs";
 
-export const DiceAmount = () => {
+export const DefenceDiceAmount = () => {
 
     const [diceAmount, setDiceAmount] = useState(0);
     const IncreaseDiceAmount = () => {
@@ -19,10 +19,10 @@ export const DiceAmount = () => {
         }
     };
     const DecreaseDiceAmount = () => {
-       if(diceAmount > 0)
-       {
-           setDiceAmount(() => diceAmount - 1);
-       }
+        if(diceAmount > 0)
+        {
+            setDiceAmount(() => diceAmount - 1);
+        }
     };
 
     const CheckForDiceIcon = () => {
@@ -39,11 +39,11 @@ export const DiceAmount = () => {
     };
 
 
-  return (
-    <div className="DiceAmount">
-      <button className="button btn btn-primary" onClick={DecreaseDiceAmount}> -1 dice </button>
-        <div className='text-align-center'> <h2>{CheckForDiceIcon()}</h2> </div>
-      <button className="button btn btn-primary" onClick={IncreaseDiceAmount}> + 1 dice</button>
-    </div>
-  );
+    return (
+        <div className="DiceAmount">
+            <button className="button btn btn-primary" onClick={DecreaseDiceAmount}> -1 dice </button>
+            <div className='text-align-center'> <h2>{CheckForDiceIcon()}</h2> </div>
+            <button className="button btn btn-primary" onClick={IncreaseDiceAmount}> + 1 dice</button>
+        </div>
+    );
 };

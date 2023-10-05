@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import "../../Css/DiceAmount.css";
+import React, {useEffect, useState, createContext, useContext} from "react";
+import "../../../Css/DiceAmount.css";
 import {
     BsFillDiamondFill,
     BsFillDice1Fill,
@@ -9,9 +9,22 @@ import {
     BsFillDice5Fill, BsFillDice6Fill
 } from "react-icons/bs";
 
-export const RerollAmount = () => {
+export const DiceAmountContext = createContext({
+    diceValue: 0, setDiceValue: (value: number) => {
+        value;
+    }
+});
+export const AttackDiceAmount = (props: {
+    onDiceValueChanged: (value: number) => void
+}) => {
 
     const [diceAmount, setDiceAmount] = useState(0);
+
+    const context = useContext(DiceAmountContext);
+
+    useEffect(() => {
+        context.setDiceValue(diceAmount);
+    }, [diceAmount]);
     const IncreaseDiceAmount = () => {
         if(diceAmount <6)
         {
@@ -38,11 +51,12 @@ export const RerollAmount = () => {
         return icons[diceAmount-1];
     };
 
-  return (
-      <div className="DiceAmount">
-          <button className="button btn btn-primary" onClick={DecreaseDiceAmount}> -1 dice </button>
-          <div className='text-align-center'> <h2>{CheckForDiceIcon()}</h2> </div>
-          <button className="button btn btn-primary" onClick={IncreaseDiceAmount}> + 1 dice</button>
-      </div>
-  );
+
+    return (
+            <div className="DiceAmount">
+                <button className="button btn btn-primary" onClick={DecreaseDiceAmount}> -1 dice </button>
+                <div className='text-align-center'> <h2>{CheckForDiceIcon()}</h2> </div>
+                <button className="button btn btn-primary" onClick={IncreaseDiceAmount}> + 1 dice</button>
+            </div>
+    );
 };
