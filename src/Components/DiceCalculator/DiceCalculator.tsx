@@ -6,7 +6,7 @@ import { DefenceSide } from "./DefenceSide/DefenceSide";
 
 export const DiceCalculator = () => {
   return (
-    <div className="DiceCalculator rounded-5">
+    <div className="DiceCalculator rounded-5 container-fluid">
       <div className="column">
         <AttackSide />
       </div>

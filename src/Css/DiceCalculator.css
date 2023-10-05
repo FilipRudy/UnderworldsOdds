@@ -1,18 +1,14 @@
 .DiceCalculator {
     display: grid;
-
+    width: fit-content;
     grid-template-columns: repeat(3, 1fr);
-    margin: 50px auto;
-    width: 75%;
-    height: 75%;
+    margin: 5% 5% 5% 5%;
     background: #303030;
     color: white;
     align-items: center;
+
 }
 
-
 .column {
-    /* You can add styles to each column if needed */
-    border: 1px solid #ddd; /* Add a border to separate the columns */
     padding: 10px;
 }
