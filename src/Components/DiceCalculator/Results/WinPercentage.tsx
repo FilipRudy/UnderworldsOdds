@@ -1,19 +1,15 @@
-import React, {useContext} from "react";
-import {DiceAmountContext} from "../AttackSide/AttackDiceAmount";
+import React from "react";
+import {useDiceContext} from "../AttackSide/AttackDiceAmountContext";
 
-interface props {
-    attackDiceNumber: number,
-    defenceDiceNumber: number,
-    attackRerollDiceNumber: number,
-    defenceRerollDiceNumber: number,
-}
-export const WinPercentage: React.FC<props> = (props: props) => {
-    const context = useContext(DiceAmountContext);
+export const WinPercentage = () => {
+
+    const { diceAmount } = useDiceContext();
+
 
     return (
     <div>
-      <h3>win chance: {props.attackDiceNumber} {props.defenceDiceNumber}</h3>
-      <h4>{context.diceValue}%</h4>
+      <h3>win chance: </h3>
+      <h4>{ diceAmount }%</h4>
     </div>
   );
 };

@@ -1,20 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import "./App.css";
 import { Navbar } from "./Components/Header";
 import { Footer } from "./Components/Footer";
 import { DiceCalculator } from "./Components/DiceCalculator/DiceCalculator";
-import {DiceAmountContext} from "./Components/DiceCalculator/AttackSide/AttackDiceAmount";
+import {DiceAmountContextProvider} from "./Components/DiceCalculator/AttackSide/AttackDiceAmountContext";
 
 function App() {
-    const [diceValue, setDiceValue] = useState(0);
+
   return (
-      <DiceAmountContext.Provider value={{diceValue, setDiceValue}}>
-          <div className="background">
+      <DiceAmountContextProvider>
+
+      <div className="background">
               <Navbar />
               <DiceCalculator />
               <Footer />
           </div>
-      </DiceAmountContext.Provider>
+          </DiceAmountContextProvider>
 
   );
 }

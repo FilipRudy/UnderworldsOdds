@@ -1,4 +1,4 @@
-import { DiceAmount } from "../DiceAmount";
+
 import { RerollAmount } from "../RerollAmount";
 import React from "react";
 import { AttackHammerToggle } from "./AttackHammerToggle";
@@ -7,12 +7,10 @@ import { AttackHalfSupportToggle } from "./AttackHalfSupportToggle";
 import { AttackFullSupportToggle } from "./AttackFullSupportToggle";
 import {AttackDiceAmount} from "./AttackDiceAmount";
 
-export const AttackSide = (props: {
-    onDiceValueChanged: (value: number) => void
-}) => {
+export const AttackSide = () => {
   return (
     <div>
-      <AttackDiceAmount onDiceValueChanged={props.onDiceValueChanged} />
+      <AttackDiceAmount/>
       <RerollAmount />
       <AttackHammerToggle />
       <AttackSwordToggle />
