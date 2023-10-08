@@ -13,11 +13,20 @@ import {
 import {
     DefenceDiceAmountContextProvider
 } from "./Components/DiceCalculator/DefenceSide/Contexts/DefenceDiceAmountContext";
+import {
+    DefenceRerollDiceAmountContextProvider
+} from "./Components/DiceCalculator/DefenceSide/Contexts/DefenceRerollDiceAmount";
+import {
+    AttackRerollDiceAmountContextProvider
+} from "./Components/DiceCalculator/AttackSide/Contexts/AttackRerollDiceAmount";
 
 function App() {
 
   return (
+
+      <DefenceRerollDiceAmountContextProvider>
       <DefenceSideTogglesContextProvider>
+          <AttackRerollDiceAmountContextProvider>
   <AttackSideTogglesContextProvider>
         <AttackDiceAmountContextProvider>
             <DefenceDiceAmountContextProvider>
@@ -29,7 +38,9 @@ function App() {
             </DefenceDiceAmountContextProvider>
           </AttackDiceAmountContextProvider>
         </AttackSideTogglesContextProvider>
+          </AttackRerollDiceAmountContextProvider>
       </DefenceSideTogglesContextProvider>
+          </DefenceRerollDiceAmountContextProvider>
 
       );
 }

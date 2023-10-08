@@ -1,7 +1,6 @@
 
-import { RerollAmount } from "../RerollAmount";
 import React from "react";
-import {AttackDiceAmount} from "./AttackDiceAmount";
+import {AttackDiceAmount, AttackRerollDiceAmount} from "./AttackDiceAmount";
 import {
     AttackFullSupportToggle,
     AttackHalfSupportToggle,
@@ -13,7 +12,7 @@ export const AttackSide = () => {
   return (
     <div>
       <AttackDiceAmount/>
-      <RerollAmount />
+      <AttackRerollDiceAmount />
       <AttackHammerToggle />
       <AttackSwordToggle />
       <AttackHalfSupportToggle />

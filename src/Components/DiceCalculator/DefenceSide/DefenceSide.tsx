@@ -1,6 +1,5 @@
 import React from "react";
-import {RerollAmount} from "../RerollAmount";
-import {DefenceDiceAmount} from "./DefenceDiceAmount";
+import {DefenceDiceAmount, DefenceRerollDiceAmount} from "./DefenceDiceAmount";
 import {
   DefenceDodgeToggle,
   DefenceFullSupportToggle,
@@ -11,7 +10,7 @@ import {
 export const DefenceSide = () => {
   return <div>
     <DefenceDiceAmount />
-    <RerollAmount />
+    <DefenceRerollDiceAmount />
     <DefenceShieldToggle />
     <DefenceDodgeToggle />
     <DefenceHalfSupportToggle />
