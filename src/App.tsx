@@ -3,21 +3,35 @@ import "./App.css";
 import { Navbar } from "./Components/Header";
 import { Footer } from "./Components/Footer";
 import { DiceCalculator } from "./Components/DiceCalculator/DiceCalculator";
-import {DiceAmountContextProvider} from "./Components/DiceCalculator/AttackSide/AttackDiceAmountContext";
+import {
+    AttackSideTogglesContextProvider
+} from "./Components/DiceCalculator/AttackSide/Contexts/AttackSideTogglesContexts";
+import {AttackDiceAmountContextProvider} from "./Components/DiceCalculator/AttackSide/Contexts/AttackDiceAmountContext";
+import {
+    DefenceSideTogglesContextProvider
+} from "./Components/DiceCalculator/DefenceSide/Contexts/DefenceSideTogglesContexts";
+import {
+    DefenceDiceAmountContextProvider
+} from "./Components/DiceCalculator/DefenceSide/Contexts/DefenceDiceAmountContext";
 
 function App() {
 
   return (
-      <DiceAmountContextProvider>
-
-      <div className="background">
+      <DefenceSideTogglesContextProvider>
+  <AttackSideTogglesContextProvider>
+        <AttackDiceAmountContextProvider>
+            <DefenceDiceAmountContextProvider>
+            <div className="background">
               <Navbar />
               <DiceCalculator />
               <Footer />
-          </div>
-          </DiceAmountContextProvider>
+             </div>
+            </DefenceDiceAmountContextProvider>
+          </AttackDiceAmountContextProvider>
+        </AttackSideTogglesContextProvider>
+      </DefenceSideTogglesContextProvider>
 
-  );
+      );
 }
 
 export default App;

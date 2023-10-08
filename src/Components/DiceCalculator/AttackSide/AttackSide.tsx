@@ -1,11 +1,13 @@
 
 import { RerollAmount } from "../RerollAmount";
 import React from "react";
-import { AttackHammerToggle } from "./AttackHammerToggle";
-import { AttackSwordToggle } from "./AttackSwordToggle";
-import { AttackHalfSupportToggle } from "./AttackHalfSupportToggle";
-import { AttackFullSupportToggle } from "./AttackFullSupportToggle";
 import {AttackDiceAmount} from "./AttackDiceAmount";
+import {
+    AttackFullSupportToggle,
+    AttackHalfSupportToggle,
+    AttackHammerToggle,
+    AttackSwordToggle
+} from "./AttackSideToggles";
 
 export const AttackSide = () => {
   return (

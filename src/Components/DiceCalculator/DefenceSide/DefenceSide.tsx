@@ -1,10 +1,12 @@
 import React from "react";
 import {RerollAmount} from "../RerollAmount";
-import {DefenceDodgeToggle} from "./DefenceDodgeToggle";
-import {DefenceShieldToggle} from "./DefenceShieldToggle";
-import {DefenceHalfSupportToggle} from "./DefenceHalfSupportToggle";
-import {DefenceFullSupportToggle} from "./DefenceFullSupportToggle";
 import {DefenceDiceAmount} from "./DefenceDiceAmount";
+import {
+  DefenceDodgeToggle,
+  DefenceFullSupportToggle,
+  DefenceHalfSupportToggle,
+  DefenceShieldToggle
+} from "./DefenceSideToggles";
 
 export const DefenceSide = () => {
   return <div>

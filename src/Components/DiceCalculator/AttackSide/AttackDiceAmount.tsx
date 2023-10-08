@@ -8,23 +8,23 @@ import {
     BsFillDice4Fill,
     BsFillDice5Fill, BsFillDice6Fill
 } from "react-icons/bs";
-import {useDiceContext} from "./AttackDiceAmountContext";
+import {useAttackDiceContext} from "./Contexts/AttackDiceAmountContext";
 
 export const AttackDiceAmount = () => {
 
-    const {diceAmount, incrementAmount, decreaseAmount} = useDiceContext();
+    const {attackDiceAmount, incrementAmount, decreaseAmount} = useAttackDiceContext();
 
     const CheckForDiceIcon = () => {
         const icons = [<BsFillDice1Fill key="1" />, <BsFillDice2Fill key="2" />,
             <BsFillDice3Fill key="3" />, <BsFillDice4Fill key="4" />,
             <BsFillDice5Fill key="5" />, <BsFillDice6Fill key="6" />,];
 
-        if(diceAmount === 0)
+        if(attackDiceAmount === 0)
         {
             return <BsFillDiamondFill/>;
         }
 
-        return icons[diceAmount-1];
+        return icons[attackDiceAmount-1];
     };
 
 
