@@ -2,7 +2,7 @@ import {useAttackDiceContext} from "../AttackSide/Contexts/AttackDiceAmountConte
 import {useDefenceDiceContext} from "../DefenceSide/Contexts/DefenceDiceAmountContext";
 import {useAttackSideTogglesContext} from "../AttackSide/Contexts/AttackSideTogglesContexts";
 import {useDefenceSideTogglesContext} from "../DefenceSide/Contexts/DefenceSideTogglesContexts";
-import React from "react";
+import React, {useState} from "react";
 import {useDefenceRerollDiceContext} from "../DefenceSide/Contexts/DefenceRerollDiceAmount";
 import {useAttackRerollDiceContext} from "../AttackSide/Contexts/AttackRerollDiceAmount";
 
@@ -10,25 +10,67 @@ import {useAttackRerollDiceContext} from "../AttackSide/Contexts/AttackRerollDic
 const calculateDiceSuccessChance = (strongSideToggle: boolean,
    weakSideToggle: boolean, fullSupportToggle: boolean, halfSupportToggle: boolean) => {
 
-    let successChance = 1/6;
+    const successChance = [10, 0 ,0 ,0 ,0 ,0];
 
     if(strongSideToggle)
-        successChance += 2/6;
+    {
+        successChance[1] = 1;
+        successChance[2] = 1;
+    }
     if(weakSideToggle)
-        successChance += 1/6;
+        successChance[3] = 1;
     if(fullSupportToggle)
-        successChance += 1/6;
+        successChance[4] = 1;
     if(halfSupportToggle)
-        successChance += 1/6;
+        successChance[5] = 1;
 
     return successChance;
 };
 
-const calculateWinChance = (attackDiceAmount: number, attackDiceSuccessChance: number,
-                         defenceDiceAmount: number, defenceDiceSuccessChance: number) =>
-{
-    return (attackDiceAmount*attackDiceSuccessChance* defenceDiceAmount* defenceDiceSuccessChance);
-};
+function calculateWinChance(
+    attackDiceAmount: number,
+    defenceDiceAmount: number,
+    attackDiceValues: number[],
+    defenceDiceValues: number[],
+    numberOfSimulations: number
+) {
+    const possibleOutcomes = 4; // -1, 0, 1, 10
+
+    const outcomesValues: number[] = new Array(possibleOutcomes).fill(0);
+
+    for (let i = 0; i < numberOfSimulations; i++) {
+        let attackValueSum = 0;
+        for (let j = 0; j < attackDiceAmount; j++) {
+            attackValueSum += attackDiceValues[Math.floor(Math.random() * attackDiceValues.length)];
+        }
+
+        let defenceValueSum = 0;
+        for (let j = 0; j < defenceDiceAmount; j++) {
+            defenceValueSum += defenceDiceValues[Math.floor(Math.random() * defenceDiceValues.length)];
+        }
+
+        if(attackValueSum > defenceValueSum+6){
+            outcomesValues[3]++;
+        }
+        else if (attackValueSum > defenceValueSum) {
+            outcomesValues[2]++;
+        } else if (attackValueSum > 0 && attackValueSum === defenceValueSum) {
+            outcomesValues[0]++;
+        } else {
+            outcomesValues[1]++;
+        }
+    }
+
+    const totalOutcomes = outcomesValues.reduce((acc, val) => acc + val, 0);
+
+    const resultPercentages = outcomesValues.map((count) =>
+        ((count / totalOutcomes) * 100).toFixed(0)
+    );
+    resultPercentages[2] = (parseInt(resultPercentages[2]) + parseInt(resultPercentages[3])).toFixed(0) ;
+
+    return resultPercentages;
+}
+
 
 export const WinPercentage = () => {
 
@@ -42,34 +84,48 @@ export const WinPercentage = () => {
         defenceFullSupportToggle, defenceHalfSupportToggle} = useDefenceSideTogglesContext();
 
 
+    const [winChance, setWinChance] = useState("0%");
+    const [drawChance, setDrawChance] = useState("0%");
+    const [criticalWinChance, setCriticalWinChance] = useState("0%");
 
-    return (
-        <div>
-            <h3>win chance: </h3>
-            <h3>{attackRerollDiceAmount}</h3>
-            <h3>{defenceRerollDiceAmount}</h3>
-            <h4>{ calculateWinChance(attackDiceAmount, calculateDiceSuccessChance(attackHammerToggle, attackSwordToggle, attackFullSupportToggle, attackHalfSupportToggle),
-                defenceDiceAmount , calculateDiceSuccessChance(defenceShieldToggle, defenceDodgeToggle, defenceFullSupportToggle, defenceHalfSupportToggle)) }%</h4>
-        </div>
-    );
-};
+        const handleCalculateClick = () => {
+            const winChances = calculateWinChance(
+                attackDiceAmount,
+                defenceDiceAmount,
+                calculateDiceSuccessChance(
+                    attackHammerToggle,
+                    attackSwordToggle,
+                    attackFullSupportToggle,
+                    attackHalfSupportToggle
+                ),
+                calculateDiceSuccessChance(
+                    defenceShieldToggle,
+                    defenceDodgeToggle,
+                    defenceFullSupportToggle,
+                    defenceHalfSupportToggle
+                ),
+                1000000
+            );
+            setWinChance(winChances[2] + "%");
+            setDrawChance(winChances[0] + "%");
+            setCriticalWinChance(winChances[3] + "%");
+        };
 
-
-export const DrawPercentage = () => {
-    return (
-        <div>
-            <h3>draw chance:</h3>
-            <h4>1%</h4>
-        </div>
-    );
-};
-
-
-export const CriticalPercentage = () => {
-    return (
-        <div>
-            <h3>critical win chance:</h3>
-            <h4>1%</h4>
-        </div>
-    );
-};
+        return (
+            <div>
+                <div>
+                    <h3>win chance:</h3>
+                    <h4>{winChance}</h4>
+                </div>
+                <div>
+                    <h3>draw chance:</h3>
+                    <h4>{drawChance}</h4>
+                </div>
+                <div>
+                    <h3>critical win chance:</h3>
+                    <h4>{criticalWinChance}</h4>
+                </div>
+                <button className='btn btn-primary' onClick={handleCalculateClick}>Calculate</button>
+            </div>
+        );
+    };
