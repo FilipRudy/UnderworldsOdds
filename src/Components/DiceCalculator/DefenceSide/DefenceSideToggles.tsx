@@ -9,86 +9,95 @@ export const DefenceShieldToggle = () => {
 
     const {toggleShield} = useDefenceSideTogglesContext();
 
-    const [isActive, setIsActive] = useState(false);
+    const [isToggled, setIsToggled] = useState(false);
 
-    const toggleButton = () => {
-        setIsActive(!isActive);
+    const toggleStatus = () => {
+        setIsToggled(!isToggled);
     };
 
     return (
         <div className="parent-container">      <img
-            src={isActive ? hammerActive : hammer}
-            className="ToggleIcon"
+            src={hammer}
+            className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
             alt="dice"
-            onMouseOver={toggleButton}
-            onMouseLeave={toggleButton}
-            onClick={toggleShield}
+            onClick={() => {
+                toggleStatus();
+                toggleShield();
+            }}
         />
         </div>
     );
 };
 
 
+
 export const DefenceDodgeToggle = () => {
+
     const {toggleDodge} = useDefenceSideTogglesContext();
 
-    const [isActive, setIsActive] = useState(false);
+    const [isToggled, setIsToggled] = useState(false);
 
-    const toggleButton = () => {
-        setIsActive(!isActive);
+    const toggleStatus = () => {
+        setIsToggled(!isToggled);
     };
 
     return (
         <div className="parent-container">      <img
-            src={isActive ? hammerActive : hammer}
-            className="ToggleIcon"
+            src={hammer}
+            className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
             alt="dice"
-            onMouseOver={toggleButton}
-            onMouseLeave={toggleButton}
-            onClick={toggleDodge}
+            onClick={() => {
+                toggleStatus();
+                toggleDodge();
+            }}
         />
         </div>
     );
 };
 
 export const DefenceFullSupportToggle = () => {
+
     const {toggleFullSupport} = useDefenceSideTogglesContext();
 
-    const [isActive, setIsActive] = useState(false);
+    const [isToggled, setIsToggled] = useState(false);
 
-    const toggleButton = () => {
-        setIsActive(!isActive);
+    const toggleStatus = () => {
+        setIsToggled(!isToggled);
     };
 
     return (
         <div className="parent-container">      <img
-            src={isActive ? hammerActive : hammer}
-            className="ToggleIcon"
+            src={hammer}
+            className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
             alt="dice"
-            onMouseOver={toggleButton}
-            onMouseLeave={toggleButton}
-            onClick={toggleFullSupport}
+            onClick={() => {
+                toggleStatus();
+                toggleFullSupport();
+            }}
         />
         </div>
     );
 };
+
 export const DefenceHalfSupportToggle = () => {
+
     const {toggleHalfSupport} = useDefenceSideTogglesContext();
 
-    const [isActive, setIsActive] = useState(false);
+    const [isToggled, setIsToggled] = useState(false);
 
-    const toggleButton = () => {
-        setIsActive(!isActive);
+    const toggleStatus = () => {
+        setIsToggled(!isToggled);
     };
 
     return (
         <div className="parent-container">      <img
-            src={isActive ? hammerActive : hammer}
-            className="ToggleIcon"
+            src={hammer}
+            className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
             alt="dice"
-            onMouseOver={toggleButton}
-            onMouseLeave={toggleButton}
-            onClick={toggleHalfSupport}
+            onClick={() => {
+                toggleStatus();
+                toggleHalfSupport();
+            }}
         />
         </div>
     );

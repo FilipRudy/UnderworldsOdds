@@ -1,7 +1,53 @@
 .ToggleIcon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
     height: 20%;
     width: 20%;
     margin-top: 1%;
+    opacity: 100%;
+    transition-duration: 0.5s;
+    overflow: hidden;
+}
+
+.ToggleIcon:hover {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 20%;
+    width: 20%;
+    margin-top: 1%;
+    opacity: 80%;
+    transition-duration: 0.5s;
+    overflow: hidden;
+}
+
+.ToggleIconClicked {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 20%;
+    width: 20%;
+    margin-top: 1%;
+    opacity: 40%;
+    transition-duration: 0.5s;
+    overflow: hidden;
+}
+
+.ToggleIconClicked:hover {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 20%;
+    width: 20%;
+    margin-top: 1%;
+    opacity: 70%;
+    transition-duration: 0.5s;
+    overflow: hidden;
 }
 
 .parent-container {

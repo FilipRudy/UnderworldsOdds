@@ -32,6 +32,8 @@ function calculateWinChance(
     defenceDiceAmount: number,
     attackDiceValues: number[],
     defenceDiceValues: number[],
+    attackRerollDiceAmount: number,
+    defenceRerollDiceAmount: number,
     numberOfSimulations: number
 ) {
     const possibleOutcomes = 4; // -1, 0, 1, 10
@@ -40,13 +42,28 @@ function calculateWinChance(
 
     for (let i = 0; i < numberOfSimulations; i++) {
         let attackValueSum = 0;
+        let attackRerollAmount = attackRerollDiceAmount;
+
         for (let j = 0; j < attackDiceAmount; j++) {
-            attackValueSum += attackDiceValues[Math.floor(Math.random() * attackDiceValues.length)];
+            let currentRoll =  attackDiceValues[Math.floor(Math.random() * attackDiceValues.length)];
+            if(attackRerollAmount > 0 && currentRoll === 0)
+            {
+                currentRoll = attackDiceValues[Math.floor(Math.random() * attackDiceValues.length)];
+                attackRerollAmount--;
+            }
+            attackValueSum += currentRoll;
         }
 
         let defenceValueSum = 0;
+        let defenceRerollAmount = defenceRerollDiceAmount;
         for (let j = 0; j < defenceDiceAmount; j++) {
-            defenceValueSum += defenceDiceValues[Math.floor(Math.random() * defenceDiceValues.length)];
+            let currentRoll =  defenceDiceValues[Math.floor(Math.random() * defenceDiceValues.length)];
+            if(defenceRerollAmount > 0 && currentRoll === 0)
+            {
+                currentRoll = defenceDiceValues[Math.floor(Math.random() * defenceDiceValues.length)];
+                defenceRerollAmount--;
+            }
+            defenceValueSum += currentRoll;
         }
 
         if(attackValueSum > defenceValueSum+6){
@@ -103,7 +120,7 @@ export const WinPercentage = () => {
                     defenceDodgeToggle,
                     defenceFullSupportToggle,
                     defenceHalfSupportToggle
-                ),
+                ),attackRerollDiceAmount,defenceRerollDiceAmount,
                 1000000
             );
             setWinChance(winChances[2] + "%");
