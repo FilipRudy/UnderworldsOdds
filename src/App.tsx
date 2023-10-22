@@ -1,24 +1,25 @@
 import React from "react";
 import "./App.css";
-import { Navbar } from "./Components/Header";
-import { Footer } from "./Components/Footer";
-import { DiceCalculator } from "./Components/DiceCalculator/DiceCalculator";
+import { Navbar } from "./layouts/FooterAndHeader/Header";
+import { Footer } from "./layouts/FooterAndHeader/Footer";
+import { DiceCalculator } from "./layouts/DiceCalculator/DiceCalculator";
 import {
     AttackSideTogglesContextProvider
-} from "./Components/DiceCalculator/AttackSide/Contexts/AttackSideTogglesContexts";
-import {AttackDiceAmountContextProvider} from "./Components/DiceCalculator/AttackSide/Contexts/AttackDiceAmountContext";
+} from "./layouts/DiceCalculator/AttackSide/Contexts/AttackSideTogglesContexts";
+import {AttackDiceAmountContextProvider} from "./layouts/DiceCalculator/AttackSide/Contexts/AttackDiceAmountContext";
 import {
     DefenceSideTogglesContextProvider
-} from "./Components/DiceCalculator/DefenceSide/Contexts/DefenceSideTogglesContexts";
+} from "./layouts/DiceCalculator/DefenceSide/Contexts/DefenceSideTogglesContexts";
 import {
     DefenceDiceAmountContextProvider
-} from "./Components/DiceCalculator/DefenceSide/Contexts/DefenceDiceAmountContext";
+} from "./layouts/DiceCalculator/DefenceSide/Contexts/DefenceDiceAmountContext";
 import {
     DefenceRerollDiceAmountContextProvider
-} from "./Components/DiceCalculator/DefenceSide/Contexts/DefenceRerollDiceAmount";
+} from "./layouts/DiceCalculator/DefenceSide/Contexts/DefenceRerollDiceAmount";
 import {
     AttackRerollDiceAmountContextProvider
-} from "./Components/DiceCalculator/AttackSide/Contexts/AttackRerollDiceAmount";
+} from "./layouts/DiceCalculator/AttackSide/Contexts/AttackRerollDiceAmount";
+import {WarbandsBrowserPage} from "./layouts/WarbandsBrowser/WarbandsBrowserPage";
 
 function App() {
 

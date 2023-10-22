@@ -1,0 +1,35 @@
+.DiceCalculator {
+    display: grid;
+    height: fit-content;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 3% 3% 3% 3%;
+    background: #303030;
+    color: white;
+    align-items: center;
+    align-self: center;
+}
+
+.column {
+    padding: 10px;
+    height: 100%;
+}
+
+@media (min-width: 1921px) {
+    .DiceCalculator {
+        width: 1728px;
+        height: 715px;
+        margin: 1% 1% 1% 1%;
+
+        align-items: center;
+    }
+}
+
+@media (min-width: 2560px) {
+    .DiceCalculator {
+        width: 1728px;
+        height: 715px;
+        margin: 1% 1% 1% 1%;
+
+        align-items: center;
+    }
+}

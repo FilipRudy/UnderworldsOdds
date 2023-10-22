@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import hammerActive from "../../../Images/DiceCalculator/AttackSide/hammerActive.png";
 import hammer from "../../../Images/DiceCalculator/AttackSide/hammer.png";
-import "../../../Css/DiceCalculator/ToggleIcon.css";
+import "../../../css/DiceCalculator/ToggleIcon.css";
 import {useDefenceSideTogglesContext} from "./Contexts/DefenceSideTogglesContexts";
 
 

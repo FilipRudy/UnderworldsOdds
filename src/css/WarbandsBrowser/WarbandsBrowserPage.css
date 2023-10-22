@@ -1,0 +1,8 @@
+.WarbandsBrowserPage {
+    display: flex;
+    margin: 3% 3% 3% 3%;
+}
+
+.InputBar {
+    flex: 1;
+}

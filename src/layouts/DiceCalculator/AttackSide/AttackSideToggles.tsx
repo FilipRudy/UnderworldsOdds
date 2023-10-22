@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import hammerActive from "../../../Images/DiceCalculator/AttackSide/hammerActive.png";
 import hammer from "../../../Images/DiceCalculator/AttackSide/hammer.png";
 import {useAttackSideTogglesContext} from "./Contexts/AttackSideTogglesContexts";
-import "../../../Css/DiceCalculator/ToggleIcon.css";
+import "../../../css/DiceCalculator/ToggleIcon.css";
 
 export const AttackHammerToggle = () => {
 

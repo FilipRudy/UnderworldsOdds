@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../Css/DiceCalculator/Results/Results.css";
+import "../../../css/DiceCalculator/Results/Results.css";
 import {WinPercentage} from "./PercentageCalculations";
 
 

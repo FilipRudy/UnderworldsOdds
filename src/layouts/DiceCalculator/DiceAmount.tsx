@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../../Css/DiceAmount.css";
+import "../../css/DiceCalculator/DiceAmount.css";
 import {
     BsFillDiamondFill,
     BsFillDice1Fill,
