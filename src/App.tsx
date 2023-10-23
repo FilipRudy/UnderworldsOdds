@@ -33,7 +33,7 @@ function App() {
             <DefenceDiceAmountContextProvider>
             <div className="background">
               <Navbar />
-              <DiceCalculator />
+              <WarbandsBrowserPage />
               <Footer />
              </div>
             </DefenceDiceAmountContextProvider>
