@@ -1,9 +1,10 @@
 
 .FiltersTable {
-    display: grid;
+    display: flex;
     height: fit-content;
     grid-template-columns: repeat(4, 1fr);
     margin: 0 3% 0 3%;
+    justify-content: space-between;
 }
 
 .card-header {
@@ -15,6 +16,22 @@
     padding: .75rem 1.25rem;
     background-color: rgba(0,0,0,0);
     display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+
+}
+.card-body-nofo {
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,0);
+    display: grid;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+
+}
+.first-row {
+            display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
 

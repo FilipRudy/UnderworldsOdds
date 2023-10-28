@@ -1,0 +1,21 @@
+.StarsRating {
+
+}
+
+input[type=radio] {
+    display:none;
+}
+
+.star{
+    cursor: pointer;
+}
+
+.rightStar {
+    transform: scaleX(-1);
+    position: absolute;
+}
+
+.wholeStar {
+    display: flex;
+    align-items: center;
+}
