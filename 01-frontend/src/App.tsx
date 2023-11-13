@@ -20,30 +20,34 @@ import {
     AttackRerollDiceAmountContextProvider
 } from "./layouts/DiceCalculator/AttackSide/Contexts/AttackRerollDiceAmount";
 import {WarbandsBrowserPage} from "./layouts/WarbandsBrowser/WarbandsBrowserPage";
+import {WarbandFiltersTogglesContextProvider} from "./layouts/WarbandsBrowser/Contexts/WarbandFiltersTogglesContext";
 
 function App() {
 
-  return (
+    return (
 
-      <DefenceRerollDiceAmountContextProvider>
-      <DefenceSideTogglesContextProvider>
-          <AttackRerollDiceAmountContextProvider>
-  <AttackSideTogglesContextProvider>
-        <AttackDiceAmountContextProvider>
-            <DefenceDiceAmountContextProvider>
-            <div className="background">
-              <Navbar />
-              <WarbandsBrowserPage />
-              <Footer />
-             </div>
-            </DefenceDiceAmountContextProvider>
-          </AttackDiceAmountContextProvider>
-        </AttackSideTogglesContextProvider>
-          </AttackRerollDiceAmountContextProvider>
-      </DefenceSideTogglesContextProvider>
-          </DefenceRerollDiceAmountContextProvider>
+        <DefenceRerollDiceAmountContextProvider>
+            <DefenceSideTogglesContextProvider>
+                <AttackRerollDiceAmountContextProvider>
+                    <AttackSideTogglesContextProvider>
+                        <AttackDiceAmountContextProvider>
+                            <WarbandFiltersTogglesContextProvider>
+                                <DefenceDiceAmountContextProvider>
 
-      );
+                                    <div className="background">
+                                        <Navbar />
+                                        <WarbandsBrowserPage />
+                                        <Footer />
+                                    </div>
+                                </DefenceDiceAmountContextProvider>
+                            </WarbandFiltersTogglesContextProvider>
+                        </AttackDiceAmountContextProvider>
+                    </AttackSideTogglesContextProvider>
+                </AttackRerollDiceAmountContextProvider>
+            </DefenceSideTogglesContextProvider>
+        </DefenceRerollDiceAmountContextProvider>
+
+    );
 }
 
 export default App;
