@@ -21,8 +21,23 @@ import {
 } from "./layouts/DiceCalculator/AttackSide/Contexts/AttackRerollDiceAmount";
 import {WarbandsBrowserPage} from "./layouts/WarbandsBrowser/WarbandsBrowserPage";
 import {WarbandFiltersTogglesContextProvider} from "./layouts/WarbandsBrowser/Contexts/WarbandFiltersTogglesContext";
+import {oktaConfig} from "./lib/oktaConfig";
+import {OktaAuth, toRelativeUrl} from "@okta/okta-auth-js";
+import {BrowserRouter, Route, useHistory} from "react-router-dom";
+import {LoginCallback, Security} from "@okta/okta-react";
+import LoginWidget from "./Auth/LoginWidget";
 
-function App() {
+
+const oktaAuth = new OktaAuth(oktaConfig);
+export const App = () => {
+
+    const history = useHistory();
+    const restoreOriginalUri = async (_oktaAuth: any, originalUri: any) => {
+        history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
+    };
+    const customAuthHandler = () => {
+        history.push("/login");
+    };
 
     return (
 
@@ -33,12 +48,18 @@ function App() {
                         <AttackDiceAmountContextProvider>
                             <WarbandFiltersTogglesContextProvider>
                                 <DefenceDiceAmountContextProvider>
+                                    <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri} onAuthRequired={customAuthHandler}>
 
-                                    <div className="background">
-                                        <Navbar />
-                                        <WarbandsBrowserPage />
-                                        <Footer />
-                                    </div>
+                                        <Route path='/login'
+                                               render={() => <LoginWidget config={oktaConfig} />}/>
+                                        <Route path='/login/callback'
+                                               component={LoginCallback}/>
+                                        <div className="background">
+                                            <Navbar />
+                                            <WarbandsBrowserPage />
+                                            <Footer />
+                                        </div>
+                                    </Security>
                                 </DefenceDiceAmountContextProvider>
                             </WarbandFiltersTogglesContextProvider>
                         </AttackDiceAmountContextProvider>
@@ -46,8 +67,7 @@ function App() {
                 </AttackRerollDiceAmountContextProvider>
             </DefenceSideTogglesContextProvider>
         </DefenceRerollDiceAmountContextProvider>
-
     );
-}
+};
 
 export default App;
