@@ -1,7 +1,8 @@
+import { oktaConfig} from "../lib/oktaConfig";
 import {useEffect, useRef} from "react";
 import OktaSignIn from "@okta/okta-signin-widget";
 import React from "react";
-import { oktaConfig} from "../lib/oktaConfig";
+
 const OktaSignInWidget = ({onSuccess, onError}) => {
     const widgetRef = useRef();
 
@@ -21,7 +22,7 @@ const OktaSignInWidget = ({onSuccess, onError}) => {
 
     return (
 
-        <div className='container mt-5 mb-5'> <div ref={widgetRef}></div> </div>
+        <div className='container mt-5 mb-5'> <div ref={widgetRef}/> </div>
     );
 };
 

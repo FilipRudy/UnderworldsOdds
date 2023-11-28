@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import { Navbar } from "./layouts/FooterAndHeader/Header";
-import { Footer } from "./layouts/FooterAndHeader/Footer";
-import { DiceCalculator } from "./layouts/DiceCalculator/DiceCalculator";
+import {Navbar} from "./layouts/FooterAndHeader/Header";
+import {Footer} from "./layouts/FooterAndHeader/Footer";
+import {DiceCalculator} from "./layouts/DiceCalculator/DiceCalculator";
 import {
     AttackSideTogglesContextProvider
 } from "./layouts/DiceCalculator/AttackSide/Contexts/AttackSideTogglesContexts";
@@ -26,6 +26,7 @@ import {OktaAuth, toRelativeUrl} from "@okta/okta-auth-js";
 import {BrowserRouter, Route, useHistory} from "react-router-dom";
 import {LoginCallback, Security} from "@okta/okta-react";
 import LoginWidget from "./Auth/LoginWidget";
+import {GlobalContext} from "./layouts/Util/GlobalContext";
 
 
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -41,32 +42,19 @@ export const App = () => {
 
     return (
 
-        <DefenceRerollDiceAmountContextProvider>
-            <DefenceSideTogglesContextProvider>
-                <AttackRerollDiceAmountContextProvider>
-                    <AttackSideTogglesContextProvider>
-                        <AttackDiceAmountContextProvider>
-                            <WarbandFiltersTogglesContextProvider>
-                                <DefenceDiceAmountContextProvider>
-                                    <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri} onAuthRequired={customAuthHandler}>
-
-                                        <Route path='/login'
-                                               render={() => <LoginWidget config={oktaConfig} />}/>
-                                        <Route path='/login/callback'
-                                               component={LoginCallback}/>
-                                        <div className="background">
-                                            <Navbar />
-                                            <WarbandsBrowserPage />
-                                            <Footer />
-                                        </div>
-                                    </Security>
-                                </DefenceDiceAmountContextProvider>
-                            </WarbandFiltersTogglesContextProvider>
-                        </AttackDiceAmountContextProvider>
-                    </AttackSideTogglesContextProvider>
-                </AttackRerollDiceAmountContextProvider>
-            </DefenceSideTogglesContextProvider>
-        </DefenceRerollDiceAmountContextProvider>
+        <GlobalContext>
+            <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri} onAuthRequired={customAuthHandler}>
+                <Route path='/login'
+                       render={() => <LoginWidget config={oktaConfig}/>}/>
+                <Route path='/login/callback'
+                       component={LoginCallback}/>
+                <div className="background">
+                    <Navbar/>
+                    <WarbandsBrowserPage/>
+                    <Footer/>
+                </div>
+            </Security>
+        </GlobalContext>
     );
 };
 
