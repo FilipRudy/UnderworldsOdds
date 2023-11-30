@@ -1,4 +1,4 @@
-package com.whu.springbootlibrary.dto;
+package com.whu.springbootlibrary.dto.user;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

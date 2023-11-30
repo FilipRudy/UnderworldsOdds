@@ -1,14 +1,15 @@
 package com.whu.springbootlibrary.service;
 
 import com.whu.springbootlibrary.dao.UserRepository;
-import com.whu.springbootlibrary.dto.CredentialsDto;
-import com.whu.springbootlibrary.dto.SignUpDto;
-import com.whu.springbootlibrary.dto.UserDto;
+import com.whu.springbootlibrary.dto.auth.CredentialsDto;
+import com.whu.springbootlibrary.dto.user.SignUpDto;
+import com.whu.springbootlibrary.dto.user.UserDto;
 import com.whu.springbootlibrary.exceptions.AppException;
 import com.whu.springbootlibrary.mappers.UserMapper;
 import com.whu.springbootlibrary.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,12 @@ public class UserService {
         User user = userRepository.findByLogin(login)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         return userMapper.toUserDto(user);
+    }
+
+    public User getCurrentUser() {
+        UserDto userDto = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return userMapper.dtoToUser(userDto);
     }
 
 }

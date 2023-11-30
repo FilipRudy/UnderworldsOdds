@@ -1,9 +1,9 @@
 package com.whu.springbootlibrary.controller;
 
 import com.whu.springbootlibrary.config.UserAuthenticationProvider;
-import com.whu.springbootlibrary.dto.CredentialsDto;
-import com.whu.springbootlibrary.dto.SignUpDto;
-import com.whu.springbootlibrary.dto.UserDto;
+import com.whu.springbootlibrary.dto.auth.CredentialsDto;
+import com.whu.springbootlibrary.dto.user.SignUpDto;
+import com.whu.springbootlibrary.dto.user.UserDto;
 import com.whu.springbootlibrary.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

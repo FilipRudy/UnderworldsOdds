@@ -1,6 +1,7 @@
 package com.whu.springbootlibrary.model;
 
 
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,4 +23,8 @@ public class Warband {
 
     @Column(name = "number_of_fighters")
     private Integer numberOfFighters;
+
+    @OneToMany(mappedBy = "warbandId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
+
 }

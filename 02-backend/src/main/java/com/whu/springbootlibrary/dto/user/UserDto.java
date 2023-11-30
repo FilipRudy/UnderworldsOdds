@@ -1,4 +1,4 @@
-package com.whu.springbootlibrary.dto;
+package com.whu.springbootlibrary.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,5 @@
-package com.whu.springbootlibrary.dto;
+package com.whu.springbootlibrary.dto.review;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CredentialsDto {
+public class AddReviewDto {
 
-    private String login;
-    private char[] password;
+    private Long warbandId;
+    private Integer starsAmount;
 
 }
