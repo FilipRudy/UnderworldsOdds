@@ -13,9 +13,13 @@ public class Warband {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "name")
     private String name;
 
-    private String factionName;
+    @Column(name = "faction_name")
+    @Enumerated(EnumType.STRING)
+    private Factions factionName;
 
+    @Column(name = "number_of_fighters")
     private Integer numberOfFighters;
 }

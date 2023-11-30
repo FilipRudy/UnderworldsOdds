@@ -19,15 +19,15 @@ export const WarbandsBrowserPage = () =>{
             const url = `${baseUrl}?page=0&size=9`;
 
             const response = await fetch(url);
-console.log(response)
+console.log(response);
             if (!response.ok) {
                 throw new Error("Something went wrong!");
             }
 
             const responseJson = await response.json();
-console.log(responseJson)
+console.log(responseJson);
             const responseData = responseJson._embedded.warbands;
-            console.log(responseData)
+            console.log(responseData);
 
             const loadedWarbands: WarbandModel[] = [];
 
