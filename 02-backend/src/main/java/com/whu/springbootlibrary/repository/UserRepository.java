@@ -1,4 +1,4 @@
-package com.whu.springbootlibrary.dao;
+package com.whu.springbootlibrary.repository;
 
 import com.whu.springbootlibrary.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

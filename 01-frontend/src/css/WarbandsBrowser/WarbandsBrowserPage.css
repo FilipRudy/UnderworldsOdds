@@ -6,3 +6,12 @@
 .InputBar {
     flex: 1;
 }
+
+@media screen and (min-width: 1621px) {
+    .WarbandsBrowser {
+        max-width: 1804px;
+        align-content: center;
+        margin: auto;
+    }
+
+}

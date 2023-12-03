@@ -1,6 +1,6 @@
 package com.whu.springbootlibrary.service;
 
-import com.whu.springbootlibrary.dao.UserRepository;
+import com.whu.springbootlibrary.repository.UserRepository;
 import com.whu.springbootlibrary.dto.auth.CredentialsDto;
 import com.whu.springbootlibrary.dto.user.SignUpDto;
 import com.whu.springbootlibrary.dto.user.UserDto;

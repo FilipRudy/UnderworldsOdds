@@ -1,7 +1,7 @@
 package com.whu.springbootlibrary.service;
 
-import com.whu.springbootlibrary.dao.WarbandRepository;
 import com.whu.springbootlibrary.model.Warband;
+import com.whu.springbootlibrary.repository.WarbandRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +18,19 @@ public class WarbandService {
         this.warbandRepository = warbandRepository;
     }
 
-    public List<Warband> getAllWarbands() {
-        List<Warband> warbands = warbandRepository.findAll();
+    public List<Warband> getAllWarbands(Boolean chaos, Boolean order, Boolean death, Boolean destruction, Boolean threeFighters,
+                                        Boolean fourFighters, Boolean fiveFighters,Boolean  sixFighters, Boolean sevenFighters,
+                                        Boolean shadespire, Boolean nightvault, Boolean beastgrave,Boolean  direchasm,
+                                        Boolean harrowdeep, Boolean nethermaze, Boolean gnarlwood, Boolean wyrdhollow,Boolean  deathgorge) {
+
+        if (!chaos && !order && !death && !destruction && !threeFighters && !fourFighters && !fiveFighters &&
+                !sixFighters && !sevenFighters && !shadespire && !nightvault && !beastgrave && !direchasm &&
+                !harrowdeep && !nethermaze && !gnarlwood && !wyrdhollow && !deathgorge) {
+            return warbandRepository.findAll();
+        }
+
+        List<Warband> warbands = warbandRepository.findAllBy(chaos, order, death, destruction, threeFighters, fourFighters, fiveFighters, sixFighters, sevenFighters,
+                shadespire, nightvault, beastgrave, direchasm, harrowdeep, nethermaze, gnarlwood, wyrdhollow, deathgorge);
         if (!warbands.isEmpty()) {
             return warbands;
         }
