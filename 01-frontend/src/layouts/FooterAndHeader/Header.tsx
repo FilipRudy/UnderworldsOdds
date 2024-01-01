@@ -1,5 +1,6 @@
 import React from "react";
 import "../../css/FooterAndHeader/Header.css";
+import {NavLink} from "react-router-dom";
 export const Navbar = () => {
 
 
@@ -24,12 +25,13 @@ export const Navbar = () => {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <a className="nav-link">
-                <h3>Probability calculator</h3>
+                <NavLink style={{ textDecoration: "none" }} to="/"><h3>Probability calculator</h3></NavLink>
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link">
-                <h3>Warbands</h3>
+                <NavLink style={{ textDecoration: "none" }} to="/warbands"><h3>Warbands</h3></NavLink>
+
               </a>
             </li>
 

@@ -2,3 +2,14 @@
     background-color: #b08968;
 margin-bottom: auto;
 }
+ul li a {
+    color: #000;
+}
+
+ul li a:hover {
+    color: #ffffff;
+}
+
+ul li a.active {
+    color: #b2e8d6;
+}
