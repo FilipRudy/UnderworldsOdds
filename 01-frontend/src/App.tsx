@@ -17,7 +17,8 @@ export const App = () => {
           <Route path="/" element={<DiceCalculator/>} />
           <Route path="/warbands" element={<WarbandsBrowserPage />} />
 
-        </Routes> <Footer />
+        </Routes>
+            <Footer />
 </div>
     </GlobalContext>
   );

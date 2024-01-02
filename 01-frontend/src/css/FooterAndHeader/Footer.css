@@ -2,8 +2,7 @@
     background-color: #ffffff;
     min-height: 6.5%;
     width: 100%;
-    margin-top: auto;
-
-    text-align: center;
+    position: sticky;
+    text-align: center; top: 100%;
 }
 

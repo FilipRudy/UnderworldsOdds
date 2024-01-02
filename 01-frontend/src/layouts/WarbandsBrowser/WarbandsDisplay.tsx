@@ -1,11 +1,21 @@
 import "../../css/WarbandsBrowser/WarbandsDisplay.css";
-import React from "react";
+import React, {useState} from "react";
 import WarbandModel from "../../models/warbands/WarbandModel";
 import {SearchWarband} from "./SearchWarband";
+import {Pagination} from "../../universal-components/Pagination";
 
 
 export const WarbandsDisplay: React.FC<{warbands: WarbandModel[]}> = (props) => {
-    if(Object.keys(props.warbands).length === 0)
+    const [postsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentWarbands = props.warbands.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+    if(Object.keys(currentWarbands).length === 0)
     {
         return(
             <div className="warbands-display">
@@ -34,10 +44,11 @@ export const WarbandsDisplay: React.FC<{warbands: WarbandModel[]}> = (props) => 
             </div>
         );
     }
-
     return(
         <div className="warbands-display">
-                <table className="table table-striped dt-responsive dataTable no-footer dtr-inline"
+
+            <div className="pagination-bar"><Pagination postsPerPage={postsPerPage} totalPosts={props.warbands.length} paginate={paginate}></Pagination></div>
+            <table className="table table-striped dt-responsive dataTable no-footer dtr-inline"
                        width="100%" role="grid">
                     <thead className="head-row">
                     <tr role="row">
@@ -54,7 +65,7 @@ export const WarbandsDisplay: React.FC<{warbands: WarbandModel[]}> = (props) => 
                     </tr>
                     </thead>
             <tbody>
-            {props.warbands.map(warband => (
+            {currentWarbands.map(warband => (
                 <SearchWarband warband={warband} key={warband.id}/>
             ))}
             </tbody>

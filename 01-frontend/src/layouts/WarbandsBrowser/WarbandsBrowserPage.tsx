@@ -11,6 +11,7 @@ export const WarbandsBrowserPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
   const [isToggled, setIsToggled] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1); // Add currentPage state
 
   const {chaosFactionToggle} = useWarbandFiltersTogglesContext();
   const {orderFactionToggle} = useWarbandFiltersTogglesContext();
@@ -42,7 +43,8 @@ export const WarbandsBrowserPage = () => {
       const response = await fetch(url);
 
       if (!response.ok) {
-        throw new Error("Something went wrong!");
+        const loadedWarbands: WarbandModel[] = [];
+        return loadedWarbands;
       }
 
       const responseJson = await response.json();
@@ -72,6 +74,7 @@ export const WarbandsBrowserPage = () => {
 
       setWarbands(loadedWarbands);
       setIsLoading(false);
+      setCurrentPage(1); // Set currentPage to 1 when changing filters
     };
 
     fetchWarbands().catch((error: any) => {
@@ -113,6 +116,27 @@ export const WarbandsBrowserPage = () => {
     setIsToggled(!isToggled);
   };
 
+  const filtersKey = JSON.stringify({
+    chaosFactionToggle,
+    orderFactionToggle,
+    deathFactionToggle,
+    destructionFactionToggle,
+    threeFightersToggle,
+    fourFightersToggle,
+    fiveFightersToggle,
+    sixFightersToggle,
+    sevenFightersToggle,
+    shadespireSeasonToggle,
+    nightvaultSeasonToggle,
+    beastgraveSeasonToggle,
+    direchasmSeasonToggle,
+    harrowdeepSeasonToggle,
+    nethermazeSeasonToggle,
+    gnarlwoodSeasonToggle,
+    wyrdhollowSeasonToggle,
+    deathgorgeSeasonToggle,
+  });
+
   return (
     <div className="WarbandsBrowser">
       <div className="WarbandsBrowserPage">
@@ -130,7 +154,7 @@ export const WarbandsBrowserPage = () => {
         </div>
       </div>
       {isToggled && <WarbandFilters />}
-      <WarbandsDisplay warbands={warbands} />
+      <WarbandsDisplay key={filtersKey} warbands={warbands} />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import React from "react";
 import "../../css/WarbandsBrowser/WarbandsDisplay.css";
 
 export const SearchWarband: React.FC<{warband: WarbandModel}> = (props) =>{
-
     return(
         <tr role="row">
             <td >{props.warband.name}</td>

@@ -29,12 +29,11 @@ public class WarbandService {
             return warbandRepository.findAll();
         }
 
-        List<Warband> warbands = warbandRepository.findAllBy(chaos, order, death, destruction, threeFighters, fourFighters, fiveFighters, sixFighters, sevenFighters,
+        return  warbandRepository.findAllBy(chaos, order, death, destruction, threeFighters, fourFighters, fiveFighters, sixFighters, sevenFighters,
                 shadespire, nightvault, beastgrave, direchasm, harrowdeep, nethermaze, gnarlwood, wyrdhollow, deathgorge);
-        if (!warbands.isEmpty()) {
-            return warbands;
-        }
-        throw new RuntimeException("There are no warbands present in the database");
+
+
+
     }
 
     public Warband getWarbandById(Integer id) {
