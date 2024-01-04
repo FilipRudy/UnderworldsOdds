@@ -12,6 +12,7 @@ import com.whu.springbootlibrary.repository.WarbandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -46,7 +47,6 @@ public class ReviewService {
     }
 
     public ReviewDto removeReview(Long warbandId) {
-
             User currentUser = this.userService.getCurrentUser();
             Optional<Warband> warband = this.warbandRepository.findById(warbandId);
             Optional<Review> existingReview = warband.isPresent() ?
@@ -58,6 +58,37 @@ public class ReviewService {
             }
             reviewRepository.delete(existingReview.get());
             return reviewMapper.toReviewDto(existingReview.get());
+    }
+
+    public Integer calculateAverageRatingForWarband(Long warbandId)
+    {
+        try{
+            Optional<Warband> currentWarband = this.warbandRepository.findById(warbandId);
+            Integer averageWarbandRating = 0;
+
+            if(currentWarband.isEmpty())
+            {
+                return 0;
+            }
+
+            Optional<List<Review>> optionalReviews = this.reviewRepository.findAllByWarbandId(currentWarband.get());
+
+            if(optionalReviews.isPresent())
+            {
+                List<Review> warbandsReviews = optionalReviews.get();
+
+                for (Review review :
+                        warbandsReviews) {
+                    averageWarbandRating += review.getStarsAmount();
+                }
+
+                return Math.round((float) averageWarbandRating /warbandsReviews.size()) ;
+            }
+
+            return 0;
+
+
+        } catch (Error e) {return 0;}
 
 
 

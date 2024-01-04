@@ -43,9 +43,11 @@ public class WarbandController {
             @RequestParam(name = "nethermaze", required = false) Boolean nethermaze,
             @RequestParam(name = "gnarlwood", required = false) Boolean gnarlwood,
             @RequestParam(name = "wyrdhollow", required = false) Boolean wyrdhollow,
-            @RequestParam(name = "deathgorge", required = false) Boolean deathgorge
+            @RequestParam(name = "deathgorge", required = false) Boolean deathgorge,
+
+            @RequestParam(name = "rating", required = false) Integer rating
     ) throws Exception {
-        return warbandService.getAllWarbands(chaos, order, death, destruction, threeFighters, fourFighters, fiveFighters, sixFighters, sevenFighters, shadespire, nightvault, beastgrave, direchasm, harrowdeep, nethermaze, gnarlwood, wyrdhollow, deathgorge);
+        return warbandService.getAllWarbands(chaos, order, death, destruction, threeFighters, fourFighters, fiveFighters, sixFighters, sevenFighters, shadespire, nightvault, beastgrave, direchasm, harrowdeep, nethermaze, gnarlwood, wyrdhollow, deathgorge, rating);
     }
 
     @GetMapping("/{id}")

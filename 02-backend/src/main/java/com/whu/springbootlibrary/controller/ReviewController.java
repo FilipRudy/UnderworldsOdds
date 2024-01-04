@@ -16,6 +16,11 @@ public class ReviewController {
 
     public final ReviewService reviewService;
 
+    @GetMapping("/average/{warbandId}")
+    public Integer getAverageRatingForWarband(@PathVariable Long warbandId) {
+        return reviewService.calculateAverageRatingForWarband(warbandId);
+    }
+
     @PostMapping("/add")
     public ReviewDto addReview (@RequestBody AddReviewDto addReviewDto, Long warbandId) {
         return reviewService.addReview(addReviewDto, warbandId);

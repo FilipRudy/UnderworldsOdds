@@ -12,6 +12,7 @@ export const WarbandsBrowserPage = () => {
   const [httpError, setHttpError] = useState(null);
   const [isToggled, setIsToggled] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); // Add currentPage state
+  const [currentStarsRating, setCurrentStarsRating] = useState(0);
 
   const {chaosFactionToggle} = useWarbandFiltersTogglesContext();
   const {orderFactionToggle} = useWarbandFiltersTogglesContext();
@@ -37,7 +38,7 @@ export const WarbandsBrowserPage = () => {
     const fetchWarbands = async () => {
       const baseUrl = "http://localhost:8080/warbands";
 
-      const url = `${baseUrl}?chaos=${chaosFactionToggle}&order=${orderFactionToggle}&death=${deathFactionToggle}&destruction=${destructionFactionToggle}&threeFighters=${threeFightersToggle}&fourFighters=${fourFightersToggle}&fiveFighters=${fiveFightersToggle}&sixFighters=${sixFightersToggle}&sevenFighters=${sevenFightersToggle}&shadespire=${shadespireSeasonToggle}&nightvault=${nightvaultSeasonToggle}&beastgrave=${beastgraveSeasonToggle}&direchasm=${direchasmSeasonToggle}&harrowdeep=${harrowdeepSeasonToggle}&nethermaze=${nethermazeSeasonToggle}&gnarlwood=${gnarlwoodSeasonToggle}&wyrdhollow=${wyrdhollowSeasonToggle}&deathgorge=${deathgorgeSeasonToggle}`;
+      const url = `${baseUrl}?chaos=${chaosFactionToggle}&order=${orderFactionToggle}&death=${deathFactionToggle}&destruction=${destructionFactionToggle}&threeFighters=${threeFightersToggle}&fourFighters=${fourFightersToggle}&fiveFighters=${fiveFightersToggle}&sixFighters=${sixFightersToggle}&sevenFighters=${sevenFightersToggle}&shadespire=${shadespireSeasonToggle}&nightvault=${nightvaultSeasonToggle}&beastgrave=${beastgraveSeasonToggle}&direchasm=${direchasmSeasonToggle}&harrowdeep=${harrowdeepSeasonToggle}&nethermaze=${nethermazeSeasonToggle}&gnarlwood=${gnarlwoodSeasonToggle}&wyrdhollow=${wyrdhollowSeasonToggle}&deathgorge=${deathgorgeSeasonToggle}&rating=${currentStarsRating}`;
 
 
       const response = await fetch(url);
@@ -100,21 +101,18 @@ export const WarbandsBrowserPage = () => {
     gnarlwoodSeasonToggle,
     wyrdhollowSeasonToggle,
     deathgorgeSeasonToggle,
+    currentStarsRating,
   ]);
 
-  if (isLoading) {
-    return (
-      <div>
-        {" "}
-        <h2>Loading..</h2>
-      </div>
-    );
-  }
 
   const toggleStatus = () => {
-      console.log(chaosFactionToggle);
     setIsToggled(!isToggled);
   };
+
+  const handleStarsRatingChange = (rating: number) => {
+    setCurrentStarsRating(rating);
+  };
+
 
   const filtersKey = JSON.stringify({
     chaosFactionToggle,
@@ -153,8 +151,7 @@ export const WarbandsBrowserPage = () => {
           </button>
         </div>
       </div>
-      {isToggled && <WarbandFilters />}
-      <WarbandsDisplay key={filtersKey} warbands={warbands} />
+      {isToggled && <WarbandFilters  onRatingChange={handleStarsRatingChange} />}      <WarbandsDisplay key={filtersKey} warbands={warbands} />
     </div>
   );
 };

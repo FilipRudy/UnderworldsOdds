@@ -3,8 +3,16 @@ import { useState } from "react";
 import React from "react";
 import "../css/universal-components/StarsRatings.css";
 
-export const StarsRating = () => {
+interface StarsRatingProps {
+    onRateChange: (rating: number) => void;
+}
+export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange }) => {
     const [rate, setRate] = useState(0);
+
+    const handleRateChange = (givenRating: number   ) => {
+        setRate(givenRating);
+        onRateChange(givenRating);
+    };
 
     return (
         <div className="container">
@@ -16,7 +24,7 @@ export const StarsRating = () => {
                             type="radio"
                             value={givenRating}
                             onClick={() => {
-                                setRate(givenRating);
+                                handleRateChange(givenRating);
                             }}
                         />
 

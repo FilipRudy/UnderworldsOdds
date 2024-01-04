@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../css/WarbandsBrowser/WarbandFilters.css";
 import {StarsRating} from "../../universal-components/StarsRating";
 
@@ -19,14 +19,18 @@ import {
     ThreeFightersToggle, WyrdhollowSeasonToggle
 } from "./WarbandFiltersToggles";
 
-export const WarbandFilters = () => {
+interface WarbandFiltersProps {
+    onRatingChange: (rating: number) => void;
+}
+
+export const WarbandFilters: React.FC<WarbandFiltersProps> = ({  onRatingChange }) => {
+
     return (
         <div className="FiltersTable ">
             <AllianceFilter/>
             <NumberOfFightersFilter/>
             <SeasonFilter/>
-            <RatingFilter/>
-        </div>
+            <RatingFilter onRatingChange={onRatingChange} />        </div>
     );
 };
 
@@ -81,13 +85,23 @@ export const SeasonFilter = () =>{
 };
 
 
-export const RatingFilter = () =>{
-    return(<div className="card mb-3">
-        <div className="card-header ">
-            Rating
+interface RatingFilterProps {
+    onRatingChange: (rating: number) => void;
+}
+
+export const RatingFilter: React.FC<RatingFilterProps> = ({onRatingChange }) => {
+    const handleRatingChange = (rating: number) => {
+        onRatingChange(rating);
+    };
+
+    return (
+        <div className="card mb-3">
+            <div className="card-header ">
+                Rating
+            </div>
+            <div className="card-body">
+                <StarsRating onRateChange={handleRatingChange} />
+            </div>
         </div>
-        <div className="card-body">
-            <StarsRating/>
-        </div>
-    </div>);
+    );
 };
