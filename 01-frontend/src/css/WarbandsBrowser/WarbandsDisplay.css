@@ -1,7 +1,6 @@
 .warbands-display {
     display: flex;
     margin: 0 3% 0 3%;
-    justify-content: space-between;
     flex-direction: column;
 }
 
@@ -16,5 +15,16 @@
 }
 
 .pagination-bar {
-    display: block;
+    display: inline-block;
+    float: left;
+}
+
+.clear-filters {
+    display: inline-block;
+    float: right;
+
+}
+
+.clear-filters {
+    white-space: nowrap;
 }

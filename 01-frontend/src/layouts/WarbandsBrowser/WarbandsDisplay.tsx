@@ -3,10 +3,11 @@ import React, {useState} from "react";
 import WarbandModel from "../../models/warbands/WarbandModel";
 import {SearchWarband} from "./SearchWarband";
 import {Pagination} from "../../universal-components/Pagination";
+import {ClearFilters} from "../../universal-components/ClearFilters";
 
 
 export const WarbandsDisplay: React.FC<{warbands: WarbandModel[]}> = (props) => {
-    const [postsPerPage] = useState(10);
+    const [postsPerPage] = useState(15);
     const [currentPage, setCurrentPage] = useState(1);
 
     const indexOfLastPost = currentPage * postsPerPage;
@@ -46,8 +47,12 @@ export const WarbandsDisplay: React.FC<{warbands: WarbandModel[]}> = (props) => 
     }
     return(
         <div className="warbands-display">
+<div className="button-holder">
+    <div className="pagination-bar"><Pagination postsPerPage={postsPerPage} totalPosts={props.warbands.length} currentPage={currentPage} paginate={paginate}></Pagination></div>
+    <div className="clear-filters">
+        <ClearFilters /> </div>
+</div>
 
-            <div className="pagination-bar"><Pagination postsPerPage={postsPerPage} totalPosts={props.warbands.length} paginate={paginate}></Pagination></div>
             <table className="table table-striped dt-responsive dataTable no-footer dtr-inline"
                        width="100%" role="grid">
                     <thead className="head-row">

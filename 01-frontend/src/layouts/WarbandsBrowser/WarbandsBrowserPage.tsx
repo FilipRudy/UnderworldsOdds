@@ -5,6 +5,9 @@ import WarbandModel from "../../models/warbands/WarbandModel";
 import { WarbandsDisplay } from "./WarbandsDisplay";
 import {useWarbandFiltersTogglesContext} from "./Contexts/WarbandFiltersTogglesContext";
 import {Factions} from "../../models/warbands/FactionsEnum";
+import {ClearFilters} from "../../universal-components/ClearFilters";
+
+
 
 export const WarbandsBrowserPage = () => {
   const [warbands, setWarbands] = useState<WarbandModel[]>([]);
@@ -113,7 +116,6 @@ export const WarbandsBrowserPage = () => {
     setCurrentStarsRating(rating);
   };
 
-
   const filtersKey = JSON.stringify({
     chaosFactionToggle,
     orderFactionToggle,
@@ -151,7 +153,11 @@ export const WarbandsBrowserPage = () => {
           </button>
         </div>
       </div>
-      {isToggled && <WarbandFilters  onRatingChange={handleStarsRatingChange} />}      <WarbandsDisplay key={filtersKey} warbands={warbands} />
+
+      {isToggled && <WarbandFilters  onRatingChange={handleStarsRatingChange} />}
+
+
+      <WarbandsDisplay key={filtersKey} warbands={warbands} />
     </div>
   );
 };
