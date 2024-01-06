@@ -20,6 +20,12 @@ export const WarbandsDisplay: React.FC<{warbands: WarbandModel[]}> = (props) => 
     {
         return(
             <div className="warbands-display">
+
+                <div className="button-holder">
+                    <div className="pagination-bar"><Pagination postsPerPage={postsPerPage} totalPosts={props.warbands.length} currentPage={currentPage} paginate={paginate}></Pagination></div>
+                    <div className="clear-filters">
+                        <ClearFilters /> </div>
+                </div>
                 <table className="table table-striped dt-responsive dataTable no-footer dtr-inline"
                        width="100%" role="grid">
                     <thead className="head-row">

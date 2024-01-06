@@ -22,9 +22,5 @@
 .clear-filters {
     display: inline-block;
     float: right;
-
-}
-
-.clear-filters {
     white-space: nowrap;
 }
