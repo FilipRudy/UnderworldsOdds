@@ -3,7 +3,6 @@ package com.whu.springbootlibrary.controller;
 
 import com.whu.springbootlibrary.dto.review.AddReviewDto;
 import com.whu.springbootlibrary.dto.review.ReviewDto;
-import com.whu.springbootlibrary.model.Warband;
 import com.whu.springbootlibrary.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +21,12 @@ public class ReviewController {
     }
 
     @PostMapping("/add")
-    public ReviewDto addReview (@RequestBody AddReviewDto addReviewDto, Long warbandId) {
+    public ReviewDto addReview(@RequestBody AddReviewDto addReviewDto, Long warbandId) {
         return reviewService.addReview(addReviewDto, warbandId);
     }
 
     @DeleteMapping("/remove/{warbandId}")
-    public ReviewDto removeReview (@PathVariable Long warbandId) {
+    public ReviewDto removeReview(@PathVariable Long warbandId) {
         return reviewService.removeReview(warbandId);
     }
 }

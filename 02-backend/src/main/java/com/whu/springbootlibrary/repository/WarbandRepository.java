@@ -12,6 +12,11 @@ public interface WarbandRepository extends JpaRepository<Warband, Integer> {
 
     Optional<Warband> findById(Long id);
 
+
+    @Query("UPDATE Warband w SET w.rating = :rating WHERE w.id = :warbandId")
+    void updateWarband(@Param("warbandId") Long warbandId, @Param("rating") Integer rating);
+
+
     @Query("SELECT w FROM Warband w WHERE " +
             "(:chaos = true AND w.factionName = 'Chaos') OR " +
             "(:order = true AND w.factionName = 'Order') OR " +
@@ -22,15 +27,15 @@ public interface WarbandRepository extends JpaRepository<Warband, Integer> {
             "(:fiveFighters = true AND w.numberOfFighters = 5) OR " +
             "(:sixFighters = true AND w.numberOfFighters = 6) OR " +
             "(:sevenFighters = true AND w.numberOfFighters = 7) OR " +
-            "(:shadespire = true AND w.factionName = 'Shadespire') OR " +
-            "(:nightvault = true AND w.factionName = 'Nightvault') OR " +
-            "(:beastgrave = true AND w.factionName = 'Beastgrave') OR " +
-            "(:direchasm = true AND w.factionName = 'Direchasm') OR " +
-            "(:harrowdeep = true AND w.factionName = 'Harrowdeep') OR " +
-            "(:nethermaze = true AND w.factionName = 'Nethermaze') OR " +
-            "(:gnarlwood = true AND w.factionName = 'Gnarlwood') OR " +
-            "(:wyrdhollow = true AND w.factionName = 'Wyrdhollow') OR " +
-            "(:deathgorge = true AND w.factionName = 'Deathgorge')")
+            "(:shadespire = true AND w.season = 'Shadespire') OR " +
+            "(:nightvault = true AND w.season = 'Nightvault') OR " +
+            "(:beastgrave = true AND w.season = 'Beastgrave') OR " +
+            "(:direchasm = true AND w.season = 'Direchasm') OR " +
+            "(:harrowdeep = true AND w.season = 'Harrowdeep') OR " +
+            "(:nethermaze = true AND w.season = 'Nethermaze') OR " +
+            "(:gnarlwood = true AND w.season = 'Gnarlwood') OR " +
+            "(:wyrdhollow = true AND w.season = 'Wyrdhollow') OR " +
+            "(:deathgorge = true AND w.season = 'Deathgorge')")
     List<Warband> findAllBy(
             @Param("chaos") boolean chaos,
             @Param("order") boolean order,
@@ -51,7 +56,6 @@ public interface WarbandRepository extends JpaRepository<Warband, Integer> {
             @Param("wyrdhollow") boolean wyrdhollow,
             @Param("deathgorge") boolean deathgorge
     );
-
 
 
 }

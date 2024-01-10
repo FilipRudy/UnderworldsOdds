@@ -72,13 +72,15 @@ export const WarbandsBrowserPage = () => {
             warband.id,
             warband.name,
             mapFactionName(warband.factionName),
-            warband.numberOfFighters
+            warband.numberOfFighters,
+            warband.season,
+            warband.rating
         );
       });
 
       setWarbands(loadedWarbands);
       setIsLoading(false);
-      setCurrentPage(1); // Set currentPage to 1 when changing filters
+      setCurrentPage(1);
     };
 
     fetchWarbands().catch((error: any) => {

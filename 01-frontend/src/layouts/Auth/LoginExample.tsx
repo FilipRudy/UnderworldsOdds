@@ -76,7 +76,6 @@ export default class LoginExample extends React.Component< any, AppState> {
         return (
 
             <>
-                <Navbar/>
                 <Buttons
                     login={this.login}
                     logout={this.logout}
@@ -85,7 +84,6 @@ export default class LoginExample extends React.Component< any, AppState> {
                 {this.state.componentToShow === "welcome" && <div>h-hej </div>}
                 {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
                 {this.state.componentToShow === "messages" && <AuthContent />}
-                <Footer/>
             </>
         );
     }

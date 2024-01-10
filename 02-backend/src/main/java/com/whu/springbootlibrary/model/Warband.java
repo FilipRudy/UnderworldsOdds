@@ -1,11 +1,12 @@
 package com.whu.springbootlibrary.model;
 
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -26,6 +27,11 @@ public class Warband {
     @Column(name = "number_of_fighters")
     private Integer numberOfFighters;
 
+    private Integer rating;
+
+    private String season;
+
+    @ToString.Exclude
     @JsonIgnore
     @OneToMany(mappedBy = "warbandId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;

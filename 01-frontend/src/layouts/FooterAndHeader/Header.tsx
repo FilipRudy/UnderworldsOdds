@@ -31,13 +31,10 @@ export const Navbar = () => {
             <li className="nav-item">
               <a className="nav-link">
                 <NavLink style={{ textDecoration: "none" }} to="/warbands"><h3>Warbands</h3></NavLink>
-
               </a>
             </li>
-
-
-              <li className="nav-item">
-                    <button className='btn' > <h3>Log out</h3></button>
+              <li className="nav-link">
+                <NavLink style={{ textDecoration: "none" }} to="/logout"><h3>Logout</h3></NavLink>
               </li>
 
           </ul>

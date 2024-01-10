@@ -24,3 +24,8 @@
     float: right;
     white-space: nowrap;
 }
+
+.more-info-button {
+    float: right;
+    justify-content: right;
+}

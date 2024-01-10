@@ -1,12 +1,12 @@
 package com.whu.springbootlibrary.service;
 
-import com.whu.springbootlibrary.repository.UserRepository;
 import com.whu.springbootlibrary.dto.auth.CredentialsDto;
 import com.whu.springbootlibrary.dto.user.SignUpDto;
 import com.whu.springbootlibrary.dto.user.UserDto;
 import com.whu.springbootlibrary.exceptions.AppException;
 import com.whu.springbootlibrary.mappers.UserMapper;
 import com.whu.springbootlibrary.model.User;
+import com.whu.springbootlibrary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;

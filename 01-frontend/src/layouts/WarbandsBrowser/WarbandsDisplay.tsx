@@ -40,6 +40,8 @@ export const WarbandsDisplay: React.FC<{warbands: WarbandModel[]}> = (props) => 
                         </th>
                         <th >Rating
                         </th>
+                        <th >Details
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,6 +74,8 @@ export const WarbandsDisplay: React.FC<{warbands: WarbandModel[]}> = (props) => 
                         <th  >Season
                         </th>
                         <th >Rating
+                        </th>
+                        <th >Details
                         </th>
                     </tr>
                     </thead>

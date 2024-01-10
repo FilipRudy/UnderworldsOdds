@@ -6,7 +6,6 @@ import com.whu.springbootlibrary.service.WarbandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin("http:/localhost:3000")
@@ -17,13 +16,12 @@ public class WarbandController {
     private final WarbandService warbandService;
 
     @Autowired
-    public WarbandController(WarbandService warbandService)
-    {
+    public WarbandController(WarbandService warbandService) {
         this.warbandService = warbandService;
     }
 
     @GetMapping()
-    public List<Warband> getAllWarbands (
+    public List<Warband> getAllWarbands(
             @RequestParam(name = "chaos", required = false) Boolean chaos,
             @RequestParam(name = "order", required = false) Boolean order,
             @RequestParam(name = "death", required = false) Boolean death,
@@ -51,7 +49,7 @@ public class WarbandController {
     }
 
     @GetMapping("/{id}")
-    public Warband getWarbandById (@PathVariable Integer id) throws Exception {
+    public Warband getWarbandById(@PathVariable Integer id) throws Exception {
         return warbandService.getWarbandById(id);
     }
 }

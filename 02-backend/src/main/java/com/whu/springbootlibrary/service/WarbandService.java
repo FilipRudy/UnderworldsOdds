@@ -22,18 +22,18 @@ public class WarbandService {
     }
 
     public List<Warband> getAllWarbands(Boolean chaos, Boolean order, Boolean death, Boolean destruction, Boolean threeFighters,
-                                        Boolean fourFighters, Boolean fiveFighters,Boolean  sixFighters, Boolean sevenFighters,
-                                        Boolean shadespire, Boolean nightvault, Boolean beastgrave,Boolean  direchasm,
-                                        Boolean harrowdeep, Boolean nethermaze, Boolean gnarlwood, Boolean wyrdhollow,Boolean  deathgorge, Integer rating) {
+                                        Boolean fourFighters, Boolean fiveFighters, Boolean sixFighters, Boolean sevenFighters,
+                                        Boolean shadespire, Boolean nightvault, Boolean beastgrave, Boolean direchasm,
+                                        Boolean harrowdeep, Boolean nethermaze, Boolean gnarlwood, Boolean wyrdhollow, Boolean deathgorge, Integer rating) {
 
         if (!chaos && !order && !death && !destruction && !threeFighters && !fourFighters && !fiveFighters &&
                 !sixFighters && !sevenFighters && !shadespire && !nightvault && !beastgrave && !direchasm &&
-                !harrowdeep && !nethermaze && !gnarlwood && !wyrdhollow && !deathgorge && (rating==0)) {
+                !harrowdeep && !nethermaze && !gnarlwood && !wyrdhollow && !deathgorge && (rating == 0)) {
             return warbandRepository.findAll();
         }
 
         if (!chaos && !order && !death && !destruction && !threeFighters && !fourFighters && !fiveFighters && !sixFighters && !sevenFighters && !shadespire && !nightvault && !beastgrave && !direchasm && !harrowdeep && !nethermaze && !gnarlwood && !wyrdhollow && !deathgorge) {
-            List<Warband> unfilteredWarbands =  warbandRepository.findAll();
+            List<Warband> unfilteredWarbands = warbandRepository.findAll();
 
             List<Warband> filteredWarbands = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class WarbandService {
             return filteredWarbands;
         }
 
-        List<Warband> unfilteredWarbands =  warbandRepository.findAllBy(chaos, order, death, destruction, threeFighters, fourFighters, fiveFighters, sixFighters, sevenFighters,
+        List<Warband> unfilteredWarbands = warbandRepository.findAllBy(chaos, order, death, destruction, threeFighters, fourFighters, fiveFighters, sixFighters, sevenFighters,
                 shadespire, nightvault, beastgrave, direchasm, harrowdeep, nethermaze, gnarlwood, wyrdhollow, deathgorge);
 
         List<Warband> filteredWarbands = new ArrayList<>();
