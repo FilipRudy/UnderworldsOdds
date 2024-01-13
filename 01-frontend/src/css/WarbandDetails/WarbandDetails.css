@@ -1,0 +1,30 @@
+.details-first-row {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid black;
+}
+
+.warband-details {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fighter-cards-holder {
+    display: inline-block;
+    padding-top: 10px;
+}
+
+@media screen and (min-width: 1621px) {
+    .warband-details {
+        max-width: 1621px;
+        align-content: center;
+        margin: auto;
+    }
+
+}

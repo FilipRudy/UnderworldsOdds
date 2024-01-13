@@ -6,6 +6,7 @@ import { WarbandsBrowserPage } from "./layouts/WarbandsBrowser/WarbandsBrowserPa
 import { GlobalContext } from "./layouts/Util/GlobalContext";
 import {DiceCalculator} from "./layouts/DiceCalculator/DiceCalculator";
 import LoginExample from "./layouts/Auth/LoginExample";
+import {WarbandDetails} from "./layouts/WarbandDetails/WarbandDetails";
 
 export const App = () => {
   return (
@@ -18,7 +19,7 @@ export const App = () => {
           <Route path="/" element={<DiceCalculator/>} />
           <Route path="/warbands" element={<WarbandsBrowserPage />} />
           <Route path="/login" element={<LoginExample />} />
-          <Route path="/login" element={<LoginExample />} />
+          <Route path="/details/:id" element={<WarbandDetails/>} />
 
         </Routes>
             <Footer />
