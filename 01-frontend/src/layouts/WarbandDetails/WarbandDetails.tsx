@@ -68,7 +68,7 @@ export const WarbandDetails  = () => {
             <WarbandStatistics warband={warband}/>
             </div>
             <div className="fighter-cards-holder">
-                <WarbandFighterCards/>
+                <WarbandFighterCards directory={warband?.name} numberOfCards={warband?.numberOfFighters}/>
             </div>
         </div>
     );

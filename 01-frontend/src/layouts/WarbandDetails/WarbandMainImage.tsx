@@ -1,24 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../css/WarbandDetails/WarbandMainImage.css";
-import khagra from "../../Images/WarbandDetails/WarbandMainPhotos/Khagra's Ravagers.png";
-const getImageForWarband = (warbandName: string) => {
-    switch (warbandName) {
-        case "Khagra's Ravagers":
-            return khagra;
-    }
-};
 
 export const WarbandMainImage: React.FC<{ warbandName?: string }> = ({ warbandName = "" }) => {
-    const imagePath = getImageForWarband(warbandName);
+    const [imagePath, setImagePath] = useState<string | null>(null);
+
+    useEffect(() => {
+        const loadImage = async () => {
+            try {
+                const imageModule = await import(
+                    `../../Images/WarbandDetails/WarbandMainPhotos/${warbandName}.png`
+                    );
+                setImagePath(imageModule.default);
+            } catch (error) {
+                console.error("Error loading image:", error);
+            }
+        };
+
+        if (warbandName) {
+            loadImage();
+        }
+
+    }, [warbandName]);
 
     return (
         <div className="main-image">
-            <img
-                className="main-image"
-                title="Universal"
-                alt="Universal"
-                src={imagePath}
-            />
+            {imagePath && (
+                <img
+                    className="main-image"
+                    title="Universal"
+                    alt="Universal"
+                    src={imagePath}
+                />
+            )}
         </div>
     );
 };
