@@ -7,41 +7,37 @@ interface WarbandFighterCardsProps {
 }
 
 export const WarbandFighterCards: React.FC<WarbandFighterCardsProps> = ({ directory = "", numberOfCards = 0 }) => {
-    const [selectedSides, setSelectedSides] = useState<{ [key: number]: number }>(() => {
-        const initialSides: { [key: number]: number } = {};
-        for (let i = 1; i <= numberOfCards; i++) {
-            initialSides[i] = 1;
-        }
-        return initialSides;
-    });
+    const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
-    const toggleSide = (cardNumber: number) => {
-        setSelectedSides((prevSelectedSides) => {
-            const currentSide = prevSelectedSides[cardNumber] || 1;
-            return {
-                ...prevSelectedSides,
-                [cardNumber]: currentSide === 1 ? 2 : 1,
-            };
+    const handleCardClick = (cardNumber: number) => {
+        setFlippedCards((prevFlippedCards) => {
+            if (prevFlippedCards.includes(cardNumber)) {
+                return prevFlippedCards.filter((num) => num !== cardNumber);
+            } else {
+                return [...prevFlippedCards, cardNumber];
+            }
         });
-    };
-
-    const getImageUrl = (cardNumber: number) => {
-        const side = selectedSides[cardNumber] || 1;
-        return require(`../../Images/WarbandDetails/WarbandFighterCards/${directory}/${cardNumber}_${side}.png`);
     };
 
     const renderCards = () => {
         const cards = [];
         for (let i = 1; i <= numberOfCards; i++) {
+            const isFlipped = flippedCards.includes(i);
+
             cards.push(
-                <a key={i} onClick={() => toggleSide(i)}>
-                    <img src={getImageUrl(i)} alt={`Image ${i}`} />
-                </a>
+                <div key={i} className={`card ${isFlipped ? "flipped" : ""}`} onClick={() => handleCardClick(i)}>
+                    <div className="card-inner">
+                        {isFlipped ? (
+                            <img src={`https://images-whu.s3.eu-north-1.amazonaws.com/WarbandFighterCards/${directory}/${i}_2.png`} alt={`Back Image ${i}`} style={{ width: "100%", height: "auto" }} />
+                        ) : (
+                            <img src={`https://images-whu.s3.eu-north-1.amazonaws.com/WarbandFighterCards/${directory}/${i}_1.png`} alt={`Front Image ${i}`} style={{ width: "100%", height: "auto" }} />
+                        )}
+                    </div>
+                </div>
             );
         }
         return cards;
     };
 
-    return <div className="fighter-cards">                    <img src={"https://images-whu.s3.eu-north-1.amazonaws.com/1_1.png"}  alt={"https://images-whu.s3.eu-north-1.amazonaws.com/1_1.png"}/>
-        {renderCards()}</div>;
+    return <div className="fighter-cards">{renderCards()}</div>;
 };
