@@ -1,25 +1,9 @@
 .DiceCalculator {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     height: fit-content;
-    grid-template-columns: repeat(3, 1fr);
+    width: fit-content;
     margin: 3% 3% 3% 3%;
-    background: #303030;
-    color: white;
-    align-items: center;
-    align-self: center;
 }
 
-.column {
-    padding: 10px;
-    height: 100%;
-}
 
-@media (min-width: 1921px) {
-    .DiceCalculator {
-        width: 1728px;
-        height: 715px;
-        margin: 1% auto;
-
-        align-items: center;
-    }
-}

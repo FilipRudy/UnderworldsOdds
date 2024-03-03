@@ -1,24 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../css/WarbandDetails/WarbandStatistics.css";
 import WarbandModel from "../../models/warbands/WarbandModel";
+import {request} from "../../axios_helper";
 
 interface WarbandStatisticsProps {
     warband?: WarbandModel;
 }
 
 export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband }) => {
+    const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        const validateToken = async () => {
+            const token = localStorage.getItem("auth_token");
+            if (token) {
+                try {
+                    const response = await fetch("http://localhost:8080/validate", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "token": token // Send the token in the request header
+                        }
+                    });
+
+                    if (response.ok) {
+                        const isValid = await response.json();
+                        setIsValidToken(isValid);
+                    } else {
+                        setIsValidToken(false);
+                    }
+                } catch (error) {
+                    console.error("Error validating token:", error);
+                    setIsValidToken(false);
+                }
+            } else {
+                setIsValidToken(false);
+            }
+        };
+
+
+        validateToken();
+    }, []);
+
+
     if (!warband) {
         return <div className="statistics">Loading...</div>;
     }
 
     return (
         <div className="statistics">
-            <table className="table table-striped dt-responsive dataTable no-footer dtr-inline"
-                   width="100%" role="grid">
+            <table className="table table-striped dt-responsive dataTable no-footer dtr-inline" width="100%" role="grid">
                 <thead className="head-row">
                 <tr role="row">
-                    <th >Details
-                    </th>
+                    <th>Details</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,12 +74,10 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
                 </tr>
                 <tr>
                     <th>Rating:</th>
-                    <td>{warband.rating}</td>
+                    <td>{isValidToken ? warband.rating : "Login to see details"}</td>
                 </tr>
                 </tbody>
             </table>
-
         </div>
     );
 };
-

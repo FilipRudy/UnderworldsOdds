@@ -13,6 +13,7 @@ interface AppState {
 
 export default class LoginExample extends React.Component< any, AppState> {
 
+
     constructor(props: any) {
         super(props);
         this.state = {
@@ -26,10 +27,12 @@ export default class LoginExample extends React.Component< any, AppState> {
 
     logout = () => {
         this.setState({ componentToShow: "welcome" });
+        localStorage.removeItem("accessToken");
         setAuthHeader(null);
     };
 
     onLogin = (e: React.FormEvent, username: string, password: string) => {
+        localStorage.removeItem("auth_token");
         e.preventDefault();
         request(
             "POST",
@@ -83,7 +86,7 @@ export default class LoginExample extends React.Component< any, AppState> {
 
                 {this.state.componentToShow === "welcome" && <div>h-hej </div>}
                 {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
-                {this.state.componentToShow === "messages" && <AuthContent />}
+                {this.state.componentToShow === "messages" && <a>dddddd</a>}
             </>
         );
     }

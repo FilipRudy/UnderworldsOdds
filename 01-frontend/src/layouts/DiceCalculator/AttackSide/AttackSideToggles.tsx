@@ -3,6 +3,7 @@ import hammerActive from "../../../Images/DiceCalculator/AttackSide/hammerActive
 import hammer from "../../../Images/DiceCalculator/AttackSide/hammer.png";
 import {useAttackSideTogglesContext} from "./Contexts/AttackSideTogglesContexts";
 import "../../../css/DiceCalculator/ToggleIcon.css";
+import "../../../css/DiceCalculator/AttackSide.css";
 
 export const AttackHammerToggle = () => {
 
@@ -15,9 +16,9 @@ export const AttackHammerToggle = () => {
     };
 
     return (
-        <div className="parent-container">      <img
+        <div className='toggle' >      <img
             src={hammer}
-            className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
+            className={isToggled ? "ToggleIcon mx-auto d-block" : "ToggleIconClicked mx-auto d-block"}
             alt="dice"
             onClick={() => {
                 toggleStatus();
@@ -39,9 +40,10 @@ export const AttackSwordToggle = () => {
     };
 
     return (
-        <div className="parent-container">      <img
+        <div className='toggle'>
+            <img
             src={hammer}
-            className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
+            className={isToggled ? "ToggleIcon mx-auto d-block" : "ToggleIconClicked mx-auto d-block"}
             alt="dice"
             onClick={() => {
                 toggleStatus();
@@ -63,9 +65,9 @@ export const AttackFullSupportToggle = () => {
     };
 
     return (
-        <div className="parent-container">      <img
+        <div className='toggle' >      <img
             src={hammer}
-            className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
+            className={isToggled ? "ToggleIcon mx-auto d-block" : "ToggleIconClicked mx-auto d-block"}
             alt="dice"
             onClick={() => {
                 toggleStatus();
@@ -87,9 +89,9 @@ export const AttackHalfSupportToggle = () => {
     };
 
     return (
-        <div className="parent-container">      <img
+        <div className='toggle'>      <img
             src={hammer}
-            className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
+            className={isToggled ? "ToggleIcon mx-auto d-block" : "ToggleIconClicked mx-auto d-block"}
             alt="dice"
             onClick={() => {
                 toggleStatus();

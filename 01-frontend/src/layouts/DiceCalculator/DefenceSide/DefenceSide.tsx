@@ -6,14 +6,26 @@ import {
   DefenceHalfSupportToggle,
   DefenceShieldToggle
 } from "./DefenceSideToggles";
+import "../../../css/DiceCalculator/DefenceSide.css";
+
 
 export const DefenceSide = () => {
   return <div>
-    <DefenceDiceAmount />
-    <DefenceRerollDiceAmount />
-    <DefenceShieldToggle />
-    <DefenceDodgeToggle />
-    <DefenceHalfSupportToggle />
-    <DefenceFullSupportToggle />
+
+    <div>
+      <div className="defence-side-dice">
+        <DefenceDiceAmount />
+        <DefenceRerollDiceAmount />
+      </div>
+      <div className='defence-side'>
+
+        <DefenceShieldToggle />
+        <DefenceDodgeToggle />
+        <DefenceHalfSupportToggle />
+        <DefenceFullSupportToggle />
+      </div>
+
+    </div>
+
   </div>;
 };

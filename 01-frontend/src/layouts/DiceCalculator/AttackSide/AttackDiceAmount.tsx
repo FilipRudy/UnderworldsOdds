@@ -10,6 +10,8 @@ import {
 } from "react-icons/bs";
 import {useAttackDiceContext} from "./Contexts/AttackDiceAmountContext";
 import {useAttackRerollDiceContext} from "./Contexts/AttackRerollDiceAmount";
+import "../../../css/DiceCalculator/AttackSide.css";
+
 
 export const AttackDiceAmount = () => {
 
@@ -30,10 +32,11 @@ export const AttackDiceAmount = () => {
 
 
     return (
-            <div className="DiceAmount">
-                <button className="button btn btn-primary" onClick={decreaseAmount}> -1 dice </button>
+            <div className="DiceAmount dice">
+                <a>Attack dice amount: </a>
+                <button className="btn-sm btn btn-primary" onClick={decreaseAmount}> -1 dice </button>
                 <div className='text-align-center'> <h2>{CheckForDiceIcon()}</h2> </div>
-                <button className="button btn btn-primary" onClick={incrementAmount}> + 1 dice</button>
+                <button className="btn-sm btn btn-primary" onClick={incrementAmount}> + 1 dice</button>
             </div>
     );
 };
@@ -57,10 +60,12 @@ export const AttackRerollDiceAmount = () => {
     };
 
     return (
-        <div className="DiceAmount">
-            <button className="button btn btn-primary" onClick={decreaseAmount}> -1 dice </button>
-            <div className='text-align-center'> <h2>{CheckForDiceIcon()}</h2> </div>
-            <button className="button btn btn-primary" onClick={incrementAmount}> + 1 dice</button>
+        <div className="DiceAmount dice">
+
+            <a>Rerolls amount: </a>
+            <button className="btn-sm btn btn-primary" onClick={decreaseAmount}> -1 dice</button>
+            <div className='text-align-center'><h2>{CheckForDiceIcon()}</h2></div>
+            <button className="btn-sm btn btn-primary" onClick={incrementAmount}> + 1 dice</button>
         </div>
     );
 };

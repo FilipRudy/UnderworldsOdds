@@ -31,10 +31,11 @@ export const DefenceDiceAmount = () => {
 
 
     return (
-        <div className="DiceAmount">
-            <button className="button btn btn-primary" onClick={decreaseAmount}> -1 dice </button>
+        <div className="DiceAmount dice">
+            <a>Defence dice amount: </a>
+            <button className="btn-sm btn btn-primary" onClick={decreaseAmount}> -1 dice </button>
             <div className='text-align-center'> <h2>{CheckForDiceIcon()}</h2> </div>
-            <button className="button btn btn-primary" onClick={incrementAmount}> + 1 dice</button>
+            <button className="btn-sm btn btn-primary" onClick={incrementAmount}> + 1 dice</button>
         </div>
     );
 };
@@ -58,10 +59,11 @@ export const DefenceRerollDiceAmount = () => {
     };
 
     return (
-        <div className="DiceAmount">
-            <button className="button btn btn-primary" onClick={decreaseAmount}> -1 dice </button>
-            <div className='text-align-center'> <h2>{CheckForDiceIcon()}</h2> </div>
-            <button className="button btn btn-primary" onClick={incrementAmount}> + 1 dice</button>
+        <div className="DiceAmount dice">
+            <a>Defence dice rerolls: </a>
+            <button className="btn-sm btn btn-primary" onClick={decreaseAmount}> -1 dice</button>
+            <div className='text-align-center'><h2>{CheckForDiceIcon()}</h2></div>
+            <button className="btn-sm btn btn-primary" onClick={incrementAmount}> + 1 dice</button>
         </div>
     );
 };

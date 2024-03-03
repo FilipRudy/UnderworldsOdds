@@ -1,8 +1,16 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "../../css/FooterAndHeader/Header.css";
 import {NavLink} from "react-router-dom";
+import {isAuthTokenValid} from "../../axios_helper";
 export const Navbar = () => {
+  const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
 
+  useEffect(() => {
+      const dupa = isAuthTokenValid();
+      dupa.then(val => {
+        setIsValidToken(val);
+      });
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -34,7 +42,7 @@ export const Navbar = () => {
               </a>
             </li>
               <li className="nav-link">
-                <NavLink style={{ textDecoration: "none" }} to="/logout"><h3>Logout</h3></NavLink>
+                <NavLink style={{ textDecoration: "none" }} to={isValidToken ? "/logout": "/login"}><h3>{isValidToken ? "Logout": "Login"}</h3></NavLink>
               </li>
 
           </ul>
