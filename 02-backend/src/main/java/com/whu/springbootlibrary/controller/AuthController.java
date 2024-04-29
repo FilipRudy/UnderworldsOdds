@@ -6,12 +6,16 @@ import com.whu.springbootlibrary.dto.auth.CredentialsDto;
 import com.whu.springbootlibrary.dto.user.SignUpDto;
 import com.whu.springbootlibrary.dto.user.UserDto;
 import com.whu.springbootlibrary.service.UserService;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.el.parser.Token;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 
 @CrossOrigin("http:/localhost:3000")
@@ -30,7 +34,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) {
+    public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) throws MessagingException, UnsupportedEncodingException {
         UserDto createdUser = userService.register(user);
         createdUser.setToken(userAuthenticationProvider.createToken(user.getLogin()));
         return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
@@ -46,5 +50,12 @@ public class AuthController {
         }
     }
 
-
+    @GetMapping("/verify")
+    public String verifyUser(@Param("code") String code) {
+        if (userService.verify(code)) {
+            return "verify_success";
+        } else {
+            return "verify_fail";
+        }
+    }
 }

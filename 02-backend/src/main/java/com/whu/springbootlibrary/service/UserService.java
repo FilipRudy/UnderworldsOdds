@@ -7,13 +7,21 @@ import com.whu.springbootlibrary.exceptions.AppException;
 import com.whu.springbootlibrary.mappers.UserMapper;
 import com.whu.springbootlibrary.model.User;
 import com.whu.springbootlibrary.repository.UserRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.utility.RandomString;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.CharBuffer;
+import java.sql.Struct;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -26,9 +34,16 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    @Autowired
+    private JavaMailSender mailSender;
+
+
     public UserDto login(CredentialsDto credentialsDto) {
         User user = userRepository.findByLogin(credentialsDto.getLogin())
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        if(!user.isConfirmed())
+            throw new AppException("User's email is not verified", HttpStatus.BAD_REQUEST);
+
 
         if (passwordEncoder.matches(CharBuffer.wrap(credentialsDto.getPassword()), user.getPassword())) {
             return userMapper.toUserDto(user);
@@ -36,7 +51,7 @@ public class UserService {
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
     }
 
-    public UserDto register(SignUpDto userDto) {
+    public UserDto register(SignUpDto userDto) throws MessagingException, UnsupportedEncodingException {
         Optional<User> optionalUser = userRepository.findByLogin(userDto.getLogin());
 
         if (optionalUser.isPresent()) {
@@ -46,7 +61,12 @@ public class UserService {
         User user = userMapper.signUpToUser(userDto);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
 
+        user.setVerificationCode(RandomString.make(64));
+        user.setConfirmed(false);
+
         User savedUser = userRepository.save(user);
+
+        sendVerificationEmail(user);
 
         return userMapper.toUserDto(savedUser);
     }
@@ -61,6 +81,51 @@ public class UserService {
         UserDto userDto = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         return userMapper.dtoToUser(userDto);
+    }
+
+    private void sendVerificationEmail(User user)
+            throws MessagingException, UnsupportedEncodingException {
+        String toAddress = user.getEmail();
+        String fromAddress = "Youremailaddress";
+        String senderName = "Yourcompanyname";
+        String subject = "Please verify your registration";
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to verify your registration:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Thank you,<br>"
+                + "Your company name.";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getLogin());
+        String verifyURL = "http://localhost:3000" + "/verify?code=" + user.getVerificationCode();
+
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+    }
+
+    public boolean verify(String verificationCode) {
+        User user = userRepository.findByVerificationCode(verificationCode);
+
+        if (user == null || user.isConfirmed()) {
+            return false;
+        } else {
+            user.setVerificationCode(null);
+            user.setConfirmed(true);
+            userRepository.save(user);
+
+            return true;
+        }
+
     }
 
 }

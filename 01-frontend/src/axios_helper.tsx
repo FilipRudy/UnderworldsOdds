@@ -13,7 +13,7 @@ export const isAuthTokenValid = async () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "token": token // Send the token in the request header
+                    "token": token
                 }
             });
 

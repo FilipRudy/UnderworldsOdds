@@ -1,0 +1,56 @@
+
+
+.warband-card-header {
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,.03);
+}
+
+.warband-card-body {
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,0);
+        flex-wrap: wrap;
+        justify-content: center;
+
+
+}
+
+.warband-card-body-nofo {
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,0);
+    display: grid;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+
+}
+.first-row {
+            display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+
+}
+
+.whuicon-lg {
+    width: 32px;
+    height: 32px;
+}
+
+button {
+    margin: 0% 1% 0% 1%
+}
+
+@media screen and (min-width:1200px) {
+
+    .FiltersTable {
+        display: flex;
+    }
+
+    .number-of-fighters-card{
+        min-width: 180px;
+    }
+
+    .ratings-card{
+        min-width: 148px;
+    }
+}

@@ -1,0 +1,30 @@
+.warbands-display {
+    display: flex;
+    flex-direction: column;
+}
+
+.table {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #dee2e6;
+}
+
+.empty-row {
+    text-align: left;
+}
+
+.pagination-bar {
+    display: inline-block;
+    float: left;
+}
+
+.clear-filters {
+    display: inline-block;
+    float: right;
+    white-space: nowrap;
+}
+
+.more-info-button {
+    float: right;
+    justify-content: right;
+}
