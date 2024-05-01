@@ -13,3 +13,16 @@ ul li a:hover {
 ul li a.active {
     color: #b2e8d6;
 }
+
+.header-text a.active {
+    color: #000;
+
+}
+.header-text a:hover {
+    color: #ffffff;
+
+}
+.header-text a {
+    color: #000;
+
+}

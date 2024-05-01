@@ -28,8 +28,8 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <a className="navbar-brand">
-          <h3>WHU</h3>
+        <a className="navbar-brand header-text">
+            <NavLink style={{ textDecoration: "none" }} to="/"><h3>Underworlds Odds</h3></NavLink>
         </a>
         <button
           className="navbar-toggler"
@@ -52,6 +52,11 @@ export const Navbar = () => {
             <li className="nav-item">
               <a className="nav-link">
                 <NavLink style={{ textDecoration: "none" }} to="/warbands"><h3>Warbands</h3></NavLink>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link">
+                <NavLink style={{ textDecoration: "none" }} to="/warbands"><h3>Profile</h3></NavLink>
               </a>
             </li>
             <li className="nav-link">

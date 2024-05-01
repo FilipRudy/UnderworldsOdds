@@ -1,14 +1,16 @@
 import React from "react";
-import "../css/warbands-browser/warbands-display.css"
+import "../css/warbands-browser/warbands-display.css";
 
+interface ClearFiltersProps {
+    onClick: () => void;
+}
 
-export const ClearFilters = () => {
+export const ClearFilters: React.FC<ClearFiltersProps> = ({ onClick }) => {
     return (
         <nav>
             <ul className='pagination'>
                 <li className='page-item'>
-                    <button onClick={() => {    window.location.reload(); // This will reload the page
-                    }} className='page-link'>Clear Filters</button>
+                    <button onClick={onClick} className='page-link'>Clear Filters</button>
                 </li>
             </ul>
         </nav>
