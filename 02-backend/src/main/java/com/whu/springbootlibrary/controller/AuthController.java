@@ -41,12 +41,30 @@ public class AuthController {
     }
 
     @PostMapping("/validate")
-    public Boolean validate(@RequestHeader String token) {
+    public Boolean validate(@RequestParam String token) {
         try {
             return userAuthenticationProvider.validateToken(token).isAuthenticated();
         } catch (JWTVerificationException e) {
             System.out.println("Token validation failed: " + e.getMessage());
             return false;
+        }
+    }
+    @PostMapping("/recover/activation")
+    public String sendActivationMail(@RequestParam String email) {
+        try {
+            userService.sendVerificationEmail(email);
+            return "verify_success";
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            return "verify_fail";
+        }
+    }
+    @PostMapping("/recover/password")
+    public String recoverPassword(@RequestParam String email) {
+        try {
+            userService.resetPassword(email);
+            return "verify_success";
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            return "verify_fail";
         }
     }
 

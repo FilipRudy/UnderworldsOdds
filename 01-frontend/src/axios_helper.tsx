@@ -8,25 +8,29 @@ export const isAuthTokenValid = async () => {
 
     const token = localStorage.getItem("auth_token");
     if (token) {
+
         try {
-            const response = await fetch("http://localhost:8080/validate", {
+            const response = await fetch(`http://localhost:8080/validate?token=${token}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "token": token
-                }
+                },
             });
 
             if (response.ok) {
                 const isValid = await response.json();
+                console.log("Token validation status:", isValid);
                 return isValid;
             } else {
+                console.error("Token validation failed:", response.statusText);
                 return false;
             }
         } catch (error) {
             console.error("Error validating token:", error);
             return false;
         }
+
+
     } else {
         return false;
     }

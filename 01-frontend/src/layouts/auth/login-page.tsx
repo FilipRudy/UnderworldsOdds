@@ -8,20 +8,25 @@ export const LoginPage = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const validateUserInput = (username: string, password: string, repeatPassword?: string, email?: string) => {
-        if (email && /\s/.test(email)) {
-            return "Last name field cannot contain spaces or any other whitespace characters.";
+    const validateUserInput = (password: string, email: string, repeatPassword?: string, username?: string,) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (/\s/.test(email)) {
+            return "Email field cannot contain spaces or any other whitespace characters.";
         }
-        if (/\s/.test(username)) {
+        if (!emailRegex.test(email)) {
+            return "Invalid email format";
+        }
+        if (username && /\s/.test(username)) {
             return "Username field cannot contain spaces or any other whitespace characters.";
         }
         if (/\s/.test(password)) {
             return "Password field cannot contain spaces or any other whitespace characters.";
         }
-        if (email && email.trim().length <= 0) {
+        if (email.trim().length <= 0) {
             return "Email cannot be empty";
         }
-        if (username.trim().length < 5) {
+        if (username && username.trim().length < 5) {
             return "Username must be at least 5 characters long";
         }
         if (password.trim().length < 6) {
@@ -33,18 +38,18 @@ export const LoginPage = () => {
         return "Correct";
     };
 
-    const onLogin = (e: React.FormEvent, username: string, password: string) => {
+    const onLogin = (e: React.FormEvent, email: string, password: string) => {
         e.preventDefault();
         localStorage.removeItem("auth_token");
         setErrorMessage("");
         setLoading(true);
 
-        if (validateUserInput(username, password) !== "Correct") {
-            setErrorMessage(validateUserInput(username, password));
+        if (validateUserInput(password, email) !== "Correct") {
+            setErrorMessage(validateUserInput(password, email));
             setLoading(false);
         } else {
             request("POST", "/login", {
-                login: username,
+                email: email,
                 password: password
             })
                 .then((response) => {
@@ -73,8 +78,8 @@ export const LoginPage = () => {
         setErrorMessage("");
         setLoading(true);
 
-        if (validateUserInput(username, password, repeatPassword, email) !== "Correct") {
-            setErrorMessage(validateUserInput(username, password, repeatPassword, email));
+        if (validateUserInput(password, email, repeatPassword, username) !== "Correct") {
+            setErrorMessage(validateUserInput(password, email, repeatPassword, username));
             setLoading(false);
         } else {
             request("POST", "/register", {
@@ -82,9 +87,8 @@ export const LoginPage = () => {
                 email: email,
                 password: password
             })
-                .then((response) => {
-                    setAuthHeader(response.data.token);
-                    window.location.href = "/";
+                .then(() => {
+                    window.location.href = "/register/success";
                 })
                 .catch((error) => {
                     setErrorMessage(error.response.data.message);
@@ -99,7 +103,7 @@ export const LoginPage = () => {
     return (
         <div className="container-md login-page">
             <LoginForm onLogin={onLogin} onRegister={onRegister} />
-            {errorMessage.trim().length > 0 && errorMessage !== "Correct" ? (
+            {errorMessage && errorMessage.trim().length > 0 && errorMessage !== "Correct" ? (
                 <div className="alert alert-danger" role="alert">
                     <a>{errorMessage}</a>
                 </div>

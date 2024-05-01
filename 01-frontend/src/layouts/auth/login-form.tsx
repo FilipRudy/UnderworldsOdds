@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import {doc} from "prettier";
 
 interface LoginFormProps {
     onLogin: (e: React.FormEvent, email: string, password: string) => void;
@@ -28,7 +27,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 
     const onSubmitLogin = (e: FormEvent) => {
         e.preventDefault();
-        props.onLogin(e, state.username, state.password);
+        props.onLogin(e, state.email, state.password);
     };
 
     const onSubmitRegister = (e: FormEvent) => {
@@ -71,14 +70,14 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                         <form onSubmit={onSubmitLogin}>
                             <div className="form-outline mb-4">
                                 <input
-                                    type="username"
-                                    id="usernameName"
-                                    name="username"
+                                    type="email"
+                                    id="emailName"
+                                    name="email"
                                     className="form-control"
                                     onChange={onChangeHandler}
                                 />
-                                <label className="form-label" htmlFor="usernameName">
-                                    Username
+                                <label className="form-label" htmlFor="emailName">
+                                    Email
                                 </label>
                             </div>
 
@@ -96,11 +95,16 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                             </div>
 
                             <button type="submit" className="btn btn-primary btn-block mb-4">
-                                Sign in
+                                Login
                             </button>
+                            <a href="/recover" className="btn btn-primary btn-block mb-4 float-end">
+                                Forgot Password
+                            </a>
+
                         </form>
                     </div>
-                    <div className={`tab-pane fade ${state.active === "register" ? "show active" : ""}`} id="pills-register">
+                    <div className={`tab-pane fade ${state.active === "register" ? "show active" : ""}`}
+                         id="pills-register">
                         <form onSubmit={onSubmitRegister}>
                             <div className="form-outline mb-4">
                                 <input
@@ -155,7 +159,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                             </div>
 
                             <button type="submit" className="btn btn-primary btn-block mb-3">
-                                Sign in
+                                Create account
                             </button>
                         </form>
                     </div>

@@ -39,8 +39,13 @@ public class UserService {
 
 
     public UserDto login(CredentialsDto credentialsDto) {
-        User user = userRepository.findByLogin(credentialsDto.getLogin())
-                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        User user = userRepository.findByEmail(credentialsDto.getEmail());
+
+        if(user == null)
+        {
+            throw new AppException("Unknown user", HttpStatus.NOT_FOUND);
+        }
+
         if(!user.isConfirmed())
             throw new AppException("User's email is not verified", HttpStatus.BAD_REQUEST);
 
@@ -66,7 +71,7 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
 
-        sendVerificationEmail(user);
+        sendVerificationEmail(user.getEmail());
 
         return userMapper.toUserDto(savedUser);
     }
@@ -83,8 +88,19 @@ public class UserService {
         return userMapper.dtoToUser(userDto);
     }
 
-    private void sendVerificationEmail(User user)
-            throws MessagingException, UnsupportedEncodingException {
+    public void sendVerificationEmail(String email)
+        throws MessagingException, UnsupportedEncodingException {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            throw new AppException("No user with email " + email + " was found", HttpStatus.BAD_REQUEST);
+        }
+
+        if(user.isConfirmed())
+        {
+            throw new AppException("User is already confirmed", HttpStatus.BAD_REQUEST);
+        }
+
         String toAddress = user.getEmail();
         String fromAddress = "Youremailaddress";
         String senderName = "Yourcompanyname";
@@ -103,7 +119,7 @@ public class UserService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getLogin());
-        String verifyURL = "http://localhost:3000" + "/verify?code=" + user.getVerificationCode();
+        String verifyURL = "http://localhost:3000 " + " /verify?code=" + user.getVerificationCode();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -125,6 +141,46 @@ public class UserService {
 
             return true;
         }
+
+    }
+    public void resetPassword(String email) throws MessagingException, UnsupportedEncodingException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new AppException("No user with email " + email + " was found", HttpStatus.BAD_REQUEST);
+        }
+        if(!user.isConfirmed())
+        {
+            throw new AppException("User is not yet confirmed", HttpStatus.BAD_REQUEST);
+        }
+
+        String newPassword = (RandomString.make(20));
+        user.setPassword(passwordEncoder.encode(CharBuffer.wrap(newPassword)));
+        userRepository.save(user);
+
+        String toAddress = user.getEmail();
+        String fromAddress = "Youremailaddress";
+        String senderName = "Yourcompanyname";
+        String subject = "Please verify your registration";
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to verify your registration:<br>"
+                + "\"[[URL]]\""
+                + "Thank you,<br>"
+                + "Your company name.";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getLogin());
+
+        content = content.replace("[[URL]]", newPassword);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
 
     }
 

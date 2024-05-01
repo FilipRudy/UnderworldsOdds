@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(HttpMethod.POST, "/login", "/register", "/validate", "http://localhost:8080/validate").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login", "/register", "/validate", "/recover/activation", "/recover/**", "http://localhost:8080/validate").permitAll()
                         .requestMatchers(HttpMethod.GET, "/warbands", "/warbands/**", "/verify" , "/verify/**", "/verify/?**").permitAll()
                         .anyRequest().authenticated())
         ;
