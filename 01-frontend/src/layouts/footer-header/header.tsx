@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import "../../css/footer-header/header.css";
 import {NavLink} from "react-router-dom";
 import {isAuthTokenValid} from "../../axios_helper";
+import {decodeToken} from "../util/helpers/hooks/decode-token";
 export const Navbar = () => {
   const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
+    const [username, setUsername] = useState<string | null>(null);
 
 
   const handleUserLogin = () => {
@@ -23,6 +25,15 @@ export const Navbar = () => {
       isUserValid.then(val => {
         setIsValidToken(val);
       });
+
+      const token = localStorage.getItem("auth_token");
+      if (token) {
+          const decodedToken = decodeToken(token);
+          if (decodedToken) {
+              const username = decodedToken.sub;
+              setUsername(username);
+          }
+      }
   }, []);
 
   return (
@@ -56,7 +67,9 @@ export const Navbar = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link">
-                <NavLink style={{ textDecoration: "none" }} to="/warbands"><h3>Profile</h3></NavLink>
+                  <NavLink style={{ textDecoration: "none" }} to={isValidToken ? `/profile/${username}` : "/login"}>
+                      <h3>Profile</h3>
+                  </NavLink>
               </a>
             </li>
             <li className="nav-link">

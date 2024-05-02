@@ -1,6 +1,8 @@
 import React, {useState} from "react";
-import hammerActive from "../../../images/dice-calculator/attack-side/hammerActive.png";
-import hammer from "../../../images/dice-calculator/attack-side/hammer.png";
+import shield from "../../../images/dice-calculator/defence-side/shield.png";
+import dodge from "../../../images/dice-calculator/defence-side/dodge.png";
+import halfsupport from "../../../images/dice-calculator/defence-side/halfsupport.png";
+import fullsupport from "../../../images/dice-calculator/defence-side/fullsupport.png";
 import "../../../css/dice-calculator/toggle-icon.css";
 import {useDefenceSideTogglesContext} from "./contexts/defence-side-toggles-contexts";
 
@@ -17,7 +19,7 @@ export const DefenceShieldToggle = () => {
 
     return (
         <div className="parent-container">      <img
-            src={hammer}
+            src={shield}
             className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
             alt="dice"
             onClick={() => {
@@ -43,7 +45,7 @@ export const DefenceDodgeToggle = () => {
 
     return (
         <div className="parent-container">      <img
-            src={hammer}
+            src={dodge}
             className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
             alt="dice"
             onClick={() => {
@@ -67,7 +69,7 @@ export const DefenceFullSupportToggle = () => {
 
     return (
         <div className="parent-container">      <img
-            src={hammer}
+            src={fullsupport}
             className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
             alt="dice"
             onClick={() => {
@@ -91,7 +93,7 @@ export const DefenceHalfSupportToggle = () => {
 
     return (
         <div className="parent-container">      <img
-            src={hammer}
+            src={halfsupport}
             className={isToggled ? "ToggleIcon" : "ToggleIconClicked"}
             alt="dice"
             onClick={() => {

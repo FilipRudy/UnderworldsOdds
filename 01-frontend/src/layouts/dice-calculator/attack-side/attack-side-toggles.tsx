@@ -1,6 +1,8 @@
 import React, {useState} from "react";
-import hammerActive from "../../../images/dice-calculator/attack-side/hammerActive.png";
 import hammer from "../../../images/dice-calculator/attack-side/hammer.png";
+import sword from "../../../images/dice-calculator/attack-side/sword.png";
+import halfSupport from "../../../images/dice-calculator/attack-side/halfsupport.png";
+import fullSupport from "../../../images/dice-calculator/attack-side/fullsupport.png";
 import {useAttackSideTogglesContext} from "./contexts/attack-side-toggles-context";
 import "../../../css/dice-calculator/toggle-icon.css";
 import "../../../css/dice-calculator/attack-side.css";
@@ -42,7 +44,7 @@ export const AttackSwordToggle = () => {
     return (
         <div className='toggle'>
             <img
-            src={hammer}
+            src={sword}
             className={isToggled ? "ToggleIcon mx-auto d-block" : "ToggleIconClicked mx-auto d-block"}
             alt="dice"
             onClick={() => {
@@ -66,7 +68,7 @@ export const AttackFullSupportToggle = () => {
 
     return (
         <div className='toggle' >      <img
-            src={hammer}
+            src={fullSupport}
             className={isToggled ? "ToggleIcon mx-auto d-block" : "ToggleIconClicked mx-auto d-block"}
             alt="dice"
             onClick={() => {
@@ -90,7 +92,7 @@ export const AttackHalfSupportToggle = () => {
 
     return (
         <div className='toggle'>      <img
-            src={hammer}
+            src={halfSupport}
             className={isToggled ? "ToggleIcon mx-auto d-block" : "ToggleIconClicked mx-auto d-block"}
             alt="dice"
             onClick={() => {
