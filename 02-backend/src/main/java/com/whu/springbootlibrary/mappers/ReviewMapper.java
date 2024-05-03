@@ -9,12 +9,12 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ReviewMapper {
 
-    @Mapping(target = "warbandId", source = "review.warbandId.id")
-    @Mapping(target = "userId", source = "review.userId.id")
+    @Mapping(target = "warbandId", source = "review.warband.id")
+    @Mapping(target = "userId", source = "review.user.id")
     ReviewDto toReviewDto(Review review);
 
-    @Mapping(target = "warbandId.id", source = "addReviewDto.warbandId")
-    @Mapping(target = "userId.id", ignore = true)
+    @Mapping(target = "warband.id", source = "addReviewDto.warbandId")
+    @Mapping(target = "user.id", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "starsAmount", source = "addReviewDto.starsAmount")
     Review addReviewDtoToReview(AddReviewDto addReviewDto);

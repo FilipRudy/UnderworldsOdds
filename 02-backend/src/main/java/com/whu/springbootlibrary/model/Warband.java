@@ -1,16 +1,17 @@
 package com.whu.springbootlibrary.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "warband")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Warband {
 
     @Id
@@ -31,9 +32,19 @@ public class Warband {
 
     private String season;
 
-    @ToString.Exclude
+    @OneToMany(mappedBy = "warband", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    @OneToMany(mappedBy = "warbandId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
+    @Override
+    public String toString() {
+        return "Warband{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", factionName=" + factionName +
+                ", numberOfFighters=" + numberOfFighters +
+                ", rating=" + rating +
+                ", season='" + season + '\'' +
+                '}';
+    }
 }

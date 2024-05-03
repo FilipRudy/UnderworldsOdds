@@ -1,6 +1,5 @@
 package com.whu.springbootlibrary.service;
 
-
 import com.whu.springbootlibrary.dto.review.AddReviewDto;
 import com.whu.springbootlibrary.dto.review.ReviewDto;
 import com.whu.springbootlibrary.mappers.ReviewMapper;
@@ -38,7 +37,7 @@ public class ReviewService {
             Optional<Review> existingReview = reviewRepository.findByUserIdAndWarbandId(currentUser.getId(), addReviewDto.getWarbandId());
 
             existingReview.ifPresent(reviewRepository::delete);
-            review.setUserId(currentUser);
+            review.setUser(currentUser);
 
             Review savedReview = reviewRepository.save(review);
 
@@ -78,7 +77,7 @@ public class ReviewService {
                 return 0;
             }
 
-            Optional<List<Review>> optionalReviews = this.reviewRepository.findAllByWarbandId(currentWarband.get());
+            Optional<List<Review>> optionalReviews = this.reviewRepository.findAllByWarbandId(warbandId);
 
             if (optionalReviews.isPresent()) {
                 List<Review> warbandsReviews = optionalReviews.get();
@@ -99,6 +98,16 @@ public class ReviewService {
         }
 
 
+    }
+    public List<Review> getAllByUsername(String username) {
+        User user = this.userService.findByLogin(username);
+        if(user == null)
+        {
+            throw new RuntimeException("No user with username " + username + " was found");
+        }
+
+
+        return user.getReviews();
     }
 
 }

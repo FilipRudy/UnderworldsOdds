@@ -16,7 +16,6 @@ public interface WarbandRepository extends JpaRepository<Warband, Integer> {
     @Query("UPDATE Warband w SET w.rating = :rating WHERE w.id = :warbandId")
     void updateWarband(@Param("warbandId") Long warbandId, @Param("rating") Integer rating);
 
-
     @Query("SELECT w FROM Warband w WHERE " +
             "(:chaos = true AND w.factionName = 'Chaos') OR " +
             "(:order = true AND w.factionName = 'Order') OR " +

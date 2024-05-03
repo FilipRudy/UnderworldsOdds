@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(HttpMethod.POST, "/login", "/register", "/validate", "/recover/activation", "/recover/**", "http://localhost:8080/validate").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/warbands", "/warbands/**", "/verify" , "/verify/**", "/verify/?**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/warbands", "/warbands/**", "/verify" , "/verify/**", "/verify/?**",  "/review/all/", "/review/all/**", "/review/all/?**").permitAll()
                         .anyRequest().authenticated())
         ;
         return http.build();

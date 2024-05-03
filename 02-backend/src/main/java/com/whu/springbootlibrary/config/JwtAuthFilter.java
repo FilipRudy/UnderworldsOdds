@@ -18,7 +18,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final UserAuthenticationProvider userAuthenticationProvider;
 
-    private final List<String> urlsToSkipAuthentication = Arrays.asList("/verify","/recover/**", "/public/**");
+    private final List<String> urlsToSkipAuthentication = Arrays.asList("/verify","/recover/**", "/public/**", "/review/all");
 
     @Override
     protected void doFilterInternal(

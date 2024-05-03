@@ -39,6 +39,18 @@ public class User {
     @Size(max = 100)
     private String password;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", verificationCode='" + verificationCode + '\'' +
+                ", isConfirmed=" + isConfirmed +
+                '}';
+    }
+
 }
