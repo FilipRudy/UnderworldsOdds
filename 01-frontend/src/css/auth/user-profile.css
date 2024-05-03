@@ -1,0 +1,52 @@
+.user-profile-container {
+    padding: 20px;
+}
+
+.user-greeting {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-card-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.user-card {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .user-card {
+        width: calc(100% - 40px);
+    }
+}
+
+.user-card h3 {
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.profile-button {
+    width: 100%;
+}
+
+.table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    text-align: center;
+}

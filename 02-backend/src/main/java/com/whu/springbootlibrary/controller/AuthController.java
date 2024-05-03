@@ -3,6 +3,7 @@ package com.whu.springbootlibrary.controller;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.whu.springbootlibrary.config.UserAuthenticationProvider;
 import com.whu.springbootlibrary.dto.auth.CredentialsDto;
+import com.whu.springbootlibrary.dto.auth.ResetPasswordDto;
 import com.whu.springbootlibrary.dto.user.SignUpDto;
 import com.whu.springbootlibrary.dto.user.UserDto;
 import com.whu.springbootlibrary.service.UserService;
@@ -62,6 +63,15 @@ public class AuthController {
     public String recoverPassword(@RequestParam String email) {
         try {
             userService.resetPassword(email);
+            return "verify_success";
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            return "verify_fail";
+        }
+    }
+    @PostMapping("/change/password")
+    public String changePassword(@RequestBody ResetPasswordDto resetPasswordDto) {
+        try {
+            userService.changePassword(resetPasswordDto);
             return "verify_success";
         } catch (MessagingException | UnsupportedEncodingException e) {
             return "verify_fail";

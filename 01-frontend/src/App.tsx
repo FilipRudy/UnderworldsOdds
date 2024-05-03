@@ -10,6 +10,7 @@ import {LoginPage} from "./layouts/auth/login-page";
 import VerifyCode from "./layouts/auth/verify-code";
 import SuccessfulRegister from "./layouts/auth/successful-register";
 import {RecoverPage} from "./layouts/auth/recover-page";
+import UserProfile from "./layouts/auth/user-profile";
 
 export const App = () => {
   return (
@@ -23,6 +24,7 @@ export const App = () => {
           <Route path="/warbands" element={<WarbandsBrowserPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/details/:id" element={<WarbandDetails/>} />
+          <Route path="/profile/:username" element={<UserProfile/>} />
           <Route path="/verify" element={<VerifyCode />} />
           <Route path="/register/success" element={<SuccessfulRegister />} />
           <Route path="/recover" element={<RecoverPage />} />

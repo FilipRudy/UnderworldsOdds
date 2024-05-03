@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../css/warband-details/warbands-statistics.css";
 import WarbandModel from "../../models/warbands/warband-model";
-import {request} from "../../axios_helper";
 
 interface WarbandStatisticsProps {
     warband?: WarbandModel;
@@ -19,7 +18,7 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            "token": token // Send the token in the request header
+                            "token": token
                         }
                     });
 

@@ -5,7 +5,6 @@ import WarbandModel from "../../models/warbands/warband-model";
 import { WarbandsDisplay } from "./warbands-display";
 import {useWarbandFiltersTogglesContext} from "./contexts/warband-filters-toggles-context";
 import {Factions} from "../../models/warbands/factions-enum";
-import {ClearFilters} from "../../universal-components/clear-filters";
 
 
 
@@ -14,7 +13,7 @@ export const WarbandsBrowserPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
   const [isToggled, setIsToggled] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1); // Add currentPage state
+  const [currentPage, setCurrentPage] = useState(1);
   const [currentStarsRating, setCurrentStarsRating] = useState(0);
 
   const {chaosFactionToggle} = useWarbandFiltersTogglesContext();

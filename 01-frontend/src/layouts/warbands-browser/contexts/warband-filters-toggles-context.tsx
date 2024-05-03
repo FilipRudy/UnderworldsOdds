@@ -55,7 +55,7 @@ export const WarbandFiltersTogglesContextProvider = ({
                                                      }: {
     children: React.ReactNode;
 }) => {
-    const [key, setKey] = useState(0); // Add key state
+    const [key, setKey] = useState(0);
 
     const [chaosFactionToggle, setChaosFactionToggle] = useState(DEFAULT_TOGGLE_STATE);
     const [destructionFactionToggle, setDestructionFactionToggle] = useState(DEFAULT_TOGGLE_STATE);

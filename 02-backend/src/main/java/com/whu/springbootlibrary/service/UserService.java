@@ -1,6 +1,7 @@
 package com.whu.springbootlibrary.service;
 
 import com.whu.springbootlibrary.dto.auth.CredentialsDto;
+import com.whu.springbootlibrary.dto.auth.ResetPasswordDto;
 import com.whu.springbootlibrary.dto.user.SignUpDto;
 import com.whu.springbootlibrary.dto.user.UserDto;
 import com.whu.springbootlibrary.exceptions.AppException;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.nio.CharBuffer;
 import java.sql.Struct;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -76,16 +78,19 @@ public class UserService {
         return userMapper.toUserDto(savedUser);
     }
 
-    public UserDto findByLogin(String login) {
-        User user = userRepository.findByLogin(login)
-                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
-        return userMapper.toUserDto(user);
+    public User findByLogin(String login) {
+        Optional<User> user = userRepository.findByLogin(login);
+        if(user.isEmpty())
+        {
+            throw new AppException("No user with username " + login + " was found", HttpStatus.BAD_REQUEST);
+        }
+        return user.get();
     }
 
     public User getCurrentUser() {
-        UserDto userDto = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userDto = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return userMapper.dtoToUser(userDto);
+        return userDto;
     }
 
     public void sendVerificationEmail(String email)
@@ -119,7 +124,7 @@ public class UserService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getLogin());
-        String verifyURL = "http://localhost:3000 " + " /verify?code=" + user.getVerificationCode();
+        String verifyURL = "http://localhost:3000" + "/verify?code=" + user.getVerificationCode();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -181,6 +186,41 @@ public class UserService {
         helper.setText(content, true);
 
         mailSender.send(message);
+
+    }
+    public void changePassword(ResetPasswordDto resetPasswordDto) throws MessagingException, UnsupportedEncodingException {
+        Optional<User> optionalUser = userRepository.findByLogin(resetPasswordDto.getUsername());
+
+
+        if (optionalUser.isEmpty()) {
+            throw new AppException("No user with username " + resetPasswordDto.getUsername() + " was found", HttpStatus.BAD_REQUEST);
+        }
+
+        User user = optionalUser.get();
+        User currentUser = getCurrentUser();
+
+        if(!Objects.equals(user.getLogin(), currentUser.getLogin()))
+        {
+            throw new AppException("User not logged in", HttpStatus.BAD_REQUEST);
+        }
+
+        if(!user.isConfirmed())
+        {
+            throw new AppException("User is not yet confirmed", HttpStatus.BAD_REQUEST);
+        }
+
+        if(resetPasswordDto.getNewPassword().length() < 6)
+        {
+            throw new AppException("Password need to be at least 6 characters long", HttpStatus.BAD_REQUEST);
+        }
+
+        if(!Objects.equals(resetPasswordDto.getNewPassword(), resetPasswordDto.getNewPasswordConfirmation()))
+        {
+            throw new AppException("Passwords are not matching", HttpStatus.BAD_REQUEST);
+        }
+
+        user.setPassword(passwordEncoder.encode(CharBuffer.wrap(resetPasswordDto.getNewPassword())));
+        userRepository.save(user);
 
     }
 
