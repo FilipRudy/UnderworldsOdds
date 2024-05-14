@@ -10,8 +10,17 @@ export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange }) => {
     const [rate, setRate] = useState(0);
 
     const handleRateChange = (givenRating: number   ) => {
-        setRate(givenRating);
-        onRateChange(givenRating);
+        if(givenRating === rate)
+        {
+            setRate(0);
+            onRateChange(0);
+
+        }
+        else
+        {
+            setRate(givenRating);
+            onRateChange(givenRating);
+        }
     };
 
     return (
@@ -38,6 +47,7 @@ export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange }) => {
                     </label>
                 );
             })}
+            +
         </div>
     );
 };

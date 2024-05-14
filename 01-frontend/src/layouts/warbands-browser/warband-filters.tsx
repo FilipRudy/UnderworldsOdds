@@ -66,7 +66,7 @@ export const NumberOfFightersFilter = () =>{
 };
 
 export const SeasonFilter = () =>{
-    return(<div className="card mb-3 warband-card">
+    return(<div className="card mb-3 ">
         <div className="card-header warband-card-header">
             Season
         </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../css/warband-details/warbands-statistics.css";
 import WarbandModel from "../../models/warbands/warband-model";
+import {isAuthTokenValid} from "../../axios_helper";
 
 interface WarbandStatisticsProps {
     warband?: WarbandModel;
@@ -10,35 +11,12 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
     const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
 
     useEffect(() => {
-        const validateToken = async () => {
-            const token = localStorage.getItem("auth_token");
-            if (token) {
-                try {
-                    const response = await fetch("http://localhost:8080/validate", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "token": token
-                        }
-                    });
-
-                    if (response.ok) {
-                        const isValid = await response.json();
-                        setIsValidToken(isValid);
-                    } else {
-                        setIsValidToken(false);
-                    }
-                } catch (error) {
-                    console.error("Error validating token:", error);
-                    setIsValidToken(false);
-                }
-            } else {
-                setIsValidToken(false);
-            }
+        const checkAuthTokenValidity = async () => {
+            const isValid = await isAuthTokenValid();
+            setIsValidToken(isValid);
         };
 
-
-        validateToken();
+        checkAuthTokenValidity();
     }, []);
 
 

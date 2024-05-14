@@ -10,7 +10,7 @@ export const SearchWarband: React.FC<{warband: WarbandModel}> = (props) =>{
         return(
             <tr role="row">
                 <td >{props.warband.name}</td>
-                <td  >                <NavLink style={{ textDecoration: "none" }} to="/warbands"><button className="btn btn-primary" >
+                <td  >                <NavLink style={{ textDecoration: "none" }} to={`/warbands/${props.warband.id}`}><button className="btn btn-primary" >
                     More info
                 </button></NavLink>
 
@@ -27,9 +27,11 @@ export const SearchWarband: React.FC<{warband: WarbandModel}> = (props) =>{
                 <td  >{props.warband.numberOfFighters}</td>
                 <td  >{props.warband.season}</td>
                 <td  >{props.warband.rating}</td>
-                <td  >                <NavLink style={{ textDecoration: "none" }} to="/warbands"><button className="btn btn-primary" >
-                    More info
-                </button></NavLink>
+                <td><NavLink style={{textDecoration: "none"}} to={`/warbands/${props.warband.id}`}>
+                    <button className="btn btn-primary">
+                        More info
+                    </button>
+                </NavLink>
 
                 </td>
             </tr>

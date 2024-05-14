@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -39,9 +40,11 @@ public class WarbandService {
 
             for (Warband warband : unfilteredWarbands) {
 
-                if (this.reviewService.calculateAverageRatingForWarband(warband.getId()) >= rating) {
-                    filteredWarbands.add(warband);
-                }
+                    if (warband.getRating() != null && warband.getRating() >= rating) {
+                        filteredWarbands.add(warband);
+                    }
+
+
             }
             return filteredWarbands;
         }
@@ -53,7 +56,7 @@ public class WarbandService {
 
         for (Warband warband : unfilteredWarbands) {
 
-            if (this.reviewService.calculateAverageRatingForWarband(warband.getId()) >= rating) {
+            if (Objects.equals(this.reviewService.calculateAverageRatingForWarband(warband.getId()), rating)) {
                 filteredWarbands.add(warband);
             }
         }

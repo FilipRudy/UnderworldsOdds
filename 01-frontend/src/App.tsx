@@ -23,7 +23,7 @@ export const App = () => {
           <Route path="/" element={<DiceCalculator/>} />
           <Route path="/warbands" element={<WarbandsBrowserPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/details/:id" element={<WarbandDetails/>} />
+          <Route path="/warbands/:id" element={<WarbandDetails/>} />
           <Route path="/profile/:username" element={<UserProfile/>} />
           <Route path="/verify" element={<VerifyCode />} />
           <Route path="/register/success" element={<SuccessfulRegister />} />
