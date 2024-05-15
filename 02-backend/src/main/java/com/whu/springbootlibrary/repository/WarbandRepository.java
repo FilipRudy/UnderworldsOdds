@@ -17,16 +17,18 @@ public interface WarbandRepository extends JpaRepository<Warband, Integer> {
     void updateWarband(@Param("warbandId") Long warbandId, @Param("rating") Integer rating);
 
     @Query("SELECT w FROM Warband w WHERE " +
-            "(:chaos = true AND w.factionName = 'Chaos') OR " +
+            "((:chaos = true AND w.factionName = 'Chaos') OR " +
             "(:order = true AND w.factionName = 'Order') OR " +
             "(:death = true AND w.factionName = 'Death') OR " +
             "(:destruction = true AND w.factionName = 'Destruction') OR " +
-            "(:threeFighters = true AND w.numberOfFighters = 3) OR " +
+            "(:chaos = false AND :order = false AND :death = false AND :destruction = false)) AND " +
+            "((:threeFighters = true AND w.numberOfFighters = 3) OR " +
             "(:fourFighters = true AND w.numberOfFighters = 4) OR " +
             "(:fiveFighters = true AND w.numberOfFighters = 5) OR " +
             "(:sixFighters = true AND w.numberOfFighters = 6) OR " +
             "(:sevenFighters = true AND w.numberOfFighters = 7) OR " +
-            "(:shadespire = true AND w.season = 'Shadespire') OR " +
+            "(:threeFighters = false AND :fourFighters = false AND :fiveFighters = false AND :sixFighters = false AND :sevenFighters = false)) AND " +
+            "((:shadespire = true AND w.season = 'Shadespire') OR " +
             "(:nightvault = true AND w.season = 'Nightvault') OR " +
             "(:beastgrave = true AND w.season = 'Beastgrave') OR " +
             "(:direchasm = true AND w.season = 'Direchasm') OR " +
@@ -34,7 +36,9 @@ public interface WarbandRepository extends JpaRepository<Warband, Integer> {
             "(:nethermaze = true AND w.season = 'Nethermaze') OR " +
             "(:gnarlwood = true AND w.season = 'Gnarlwood') OR " +
             "(:wyrdhollow = true AND w.season = 'Wyrdhollow') OR " +
-            "(:deathgorge = true AND w.season = 'Deathgorge')")
+            "(:deathgorge = true AND w.season = 'Deathgorge') OR " +
+            "(:shadespire = false AND :nightvault = false AND :beastgrave = false AND :direchasm = false AND :harrowdeep = false AND :nethermaze = false AND :gnarlwood = false AND :wyrdhollow = false AND :deathgorge = false))")
+
     List<Warband> findAllBy(
             @Param("chaos") boolean chaos,
             @Param("order") boolean order,

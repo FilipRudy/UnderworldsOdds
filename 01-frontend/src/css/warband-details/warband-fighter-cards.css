@@ -1,9 +1,9 @@
 .fighter-cards {
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid black;
     width: fit-content;
     max-width: 1100px;
+    justify-content: space-around;
 }
 
 .fighter-card {

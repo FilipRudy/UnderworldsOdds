@@ -23,8 +23,6 @@ export const WarbandsDisplay: React.FC<{ warbands: WarbandModel[] }> = (props) =
         clearAllFilters();
     };
 
-
-
     if (Object.keys(currentWarbands).length === 0) {
         return (
             <div className="warbands-display">

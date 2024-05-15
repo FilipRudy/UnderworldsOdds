@@ -39,5 +39,14 @@ export const WarbandFighterCards: React.FC<WarbandFighterCardsProps> = ({ direct
         return cards;
     };
 
-    return <div className="fighter-cards">{renderCards()}</div>;
+    return (
+        <div className="card mb-3 warband-card number-of-fighters-card">
+            <div className="card-header warband-card-header">
+                Fighter cards
+            </div>
+            <div className="card-body warband-card-body">
+                <div className="fighter-cards">{renderCards()}</div>
+            </div>
+        </div>
+    );
 };

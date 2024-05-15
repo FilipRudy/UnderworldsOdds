@@ -1,6 +1,7 @@
 package com.whu.springbootlibrary.controller;
 
 import com.whu.springbootlibrary.dto.review.AddReviewDto;
+import com.whu.springbootlibrary.dto.review.GetReviewByIdDto;
 import com.whu.springbootlibrary.dto.review.ReviewDto;
 import com.whu.springbootlibrary.model.Review;
 import com.whu.springbootlibrary.service.ReviewService;
@@ -21,16 +22,20 @@ public class ReviewController {
     public Integer getAverageRatingForWarband(@PathVariable Long warbandId) {
         return reviewService.calculateAverageRatingForWarband(warbandId);
     }
+    @GetMapping("/by-user")
+    public Review getReviewByUserIdAndWarbandId(@RequestBody GetReviewByIdDto getReviewByIdDto) {
+        System.out.println(getReviewByIdDto);
+        return reviewService.getOneByUserIdAndWarbandId(getReviewByIdDto.getUsername(), getReviewByIdDto.getWarbandId());
+    }
     @GetMapping("/all/{username}")
     public List<Review> getAllByUsername(@PathVariable String username) {
-        List<Review> dupal = null;
+        List<Review> reviewList = null;
         try{
-            List<Review> dupa = reviewService.getAllByUsername(username);
-            return dupa;
+            return reviewList = reviewService.getAllByUsername(username);
         } catch (Error e)
         {
             System.out.println("print"+e);
-            return dupal;
+            return reviewList;
         }
 
     }

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../../css/warband-details/warbands-statistics.css";
 import WarbandModel from "../../models/warbands/warband-model";
-import {isAuthTokenValid} from "../../axios_helper";
+import { isAuthTokenValid, request } from "../../axios_helper";
+import {StarsRating} from "../../universal-components/stars-rating";
+import {useParams} from "react-router-dom";
 
 interface WarbandStatisticsProps {
     warband?: WarbandModel;
@@ -19,6 +21,18 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
         checkAuthTokenValidity();
     }, []);
 
+    const handleRatingChange = async (rating: number) => {
+        try {
+            const response = await request("POST", "/review/add", {
+                warbandId: warband?.id,
+                starsAmount: rating
+            });
+
+            console.log("Review added successfully:", response.data);
+        } catch (error:any) {
+            console.error("Error adding review:", error.response?.data?.message || error.message);
+        }
+    };
 
     if (!warband) {
         return <div className="statistics">Loading...</div>;
@@ -51,7 +65,13 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
                 </tr>
                 <tr>
                     <th>Rating:</th>
-                    <td>{isValidToken ? warband.rating : "Login to see details"}</td>
+                    <td>
+                        {isValidToken ? (
+                            <StarsRating onRateChange={handleRatingChange} />
+                        ) : (
+                            "Login to see details"
+                        )}
+                    </td>
                 </tr>
                 </tbody>
             </table>

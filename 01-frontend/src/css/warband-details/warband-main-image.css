@@ -3,3 +3,9 @@
     display: inline-block;
 
 }
+
+@media (max-width: 500px) {
+    .main-image {
+        display: none;
+    }
+}

@@ -34,11 +34,16 @@ public class ReviewService {
                 throw new RuntimeException("There was an error while adding a review");
 
             }
-            Optional<Review> existingReview = reviewRepository.findByUserIdAndWarbandId(currentUser.getId(), addReviewDto.getWarbandId());
+            Optional<Review> optionalExistingReview = reviewRepository.findByUserIdAndWarbandId(currentUser.getId(), addReviewDto.getWarbandId());
+            optionalExistingReview.ifPresent(reviewRepository::delete);
 
-            existingReview.ifPresent(reviewRepository::delete);
+            if(optionalExistingReview.isPresent() && addReviewDto.getStarsAmount() == 0)
+            {
+                Review existingReview = optionalExistingReview.get();
+                return reviewMapper.toReviewDto(existingReview);
+            }
+
             review.setUser(currentUser);
-
             Review savedReview = reviewRepository.save(review);
 
 
@@ -46,7 +51,6 @@ public class ReviewService {
             this.warbandRepository.save(warband.get());
 
             return reviewMapper.toReviewDto(savedReview);
-
         } catch (Error e) {
             throw new RuntimeException("There was an error while adding a review");
 
@@ -108,6 +112,18 @@ public class ReviewService {
 
 
         return user.getReviews();
+    }
+    public Review getOneByUserIdAndWarbandId(String username, Long warbandId) {
+        User user = this.userService.findByLogin(username);
+
+        Optional<Review> optionalReview = this.reviewRepository.findByUserIdAndWarbandId(user.getId(), warbandId);
+
+        if(optionalReview.isEmpty())
+        {
+            throw new RuntimeException("No review for user with id: " + user.getId() + " and warband with id: " + warbandId + "  was found");
+
+        }
+        return optionalReview.get();
     }
 
 }

@@ -1,23 +1,27 @@
 import { FaStar } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import "../css/universal-components/stars-ratings.css";
 
 interface StarsRatingProps {
     onRateChange: (rating: number) => void;
+    defaultRating?: number; // Optional default rating
 }
-export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange }) => {
-    const [rate, setRate] = useState(0);
 
-    const handleRateChange = (givenRating: number   ) => {
-        if(givenRating === rate)
-        {
+export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange, defaultRating }) => {
+    const [rate, setRate] = useState(defaultRating || 0); // Set initial rating to defaultRating if provided, otherwise 0
+
+    useEffect(() => {
+        if (defaultRating) {
+            setRate(defaultRating);
+        }
+    }, [defaultRating]); // Update rate state if defaultRating changes
+
+    const handleRateChange = (givenRating: number) => {
+        if (givenRating === rate) {
             setRate(0);
             onRateChange(0);
-
-        }
-        else
-        {
+        } else {
             setRate(givenRating);
             onRateChange(givenRating);
         }
@@ -28,7 +32,7 @@ export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange }) => {
             {[...Array(5)].map((item, index) => {
                 const givenRating = index + 1;
                 return (
-                    <label>
+                    <label key={index}> {/* Add key to each label */}
                         <input
                             type="radio"
                             value={givenRating}
@@ -37,17 +41,16 @@ export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange }) => {
                             }}
                         />
 
-                            <FaStar
-                                color={
-                                    givenRating < rate || givenRating === rate
-                                        ? "000"
-                                        : "rgb(192,192,192)"
-                                }
-                            />
+                        <FaStar
+                            color={
+                                givenRating <= rate // Modify condition to include the case when givenRating equals rate
+                                    ? "#000" // Change to valid color code
+                                    : "rgb(192, 192, 192)"
+                            }
+                        />
                     </label>
                 );
             })}
-            +
         </div>
     );
 };
