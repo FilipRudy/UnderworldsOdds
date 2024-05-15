@@ -5,17 +5,17 @@ import "../css/universal-components/stars-ratings.css";
 
 interface StarsRatingProps {
     onRateChange: (rating: number) => void;
-    defaultRating?: number; // Optional default rating
+    defaultRating?: number;
 }
 
 export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange, defaultRating }) => {
-    const [rate, setRate] = useState(defaultRating || 0); // Set initial rating to defaultRating if provided, otherwise 0
+    const [rate, setRate] = useState(defaultRating || 0);
 
     useEffect(() => {
         if (defaultRating) {
             setRate(defaultRating);
         }
-    }, [defaultRating]); // Update rate state if defaultRating changes
+    }, [defaultRating]);
 
     const handleRateChange = (givenRating: number) => {
         if (givenRating === rate) {
@@ -43,8 +43,8 @@ export const StarsRating: React.FC<StarsRatingProps> = ({ onRateChange, defaultR
 
                         <FaStar
                             color={
-                                givenRating <= rate // Modify condition to include the case when givenRating equals rate
-                                    ? "#000" // Change to valid color code
+                                givenRating <= rate
+                                    ? "#000"
                                     : "rgb(192, 192, 192)"
                             }
                         />
