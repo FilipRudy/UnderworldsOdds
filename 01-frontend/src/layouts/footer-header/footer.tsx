@@ -5,7 +5,7 @@ export const Footer = () => {
   return <div className="footer ">
     <div className="line"> </div>
     <div className="push"></div>
-    <a>greenblob inc all rights reserved</a>
+    <a>Made by Greenblob, contact me on discord (_greenblob) with any issues you may have</a>
     <div className="push"></div>
   </div>;
 };

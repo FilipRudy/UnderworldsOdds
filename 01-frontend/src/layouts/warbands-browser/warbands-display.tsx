@@ -98,49 +98,44 @@ export const WarbandsDisplay: React.FC<{ warbands: WarbandModel[] }> = (props) =
                 </div>
             </div>
 
-            {screenWidth < 600 ? (
-                <table className="table table-striped dt-responsive dataTable no-footer dtr-inline" width="100%" role="grid">
-                    <thead className="head-row">
-                    <tr role="row">
-                        <th>Name</th>
-                        <th>Details</th>
+            <table className="table table-striped dt-responsive dataTable no-footer dtr-inline" width="100%" role="grid">
+                <thead className="head-row">
+                <tr role="row">
+                    {screenWidth >= 600 && (
+                        <>
+                            <th onClick={() => sortByField("name")}>
+                                Name {renderSortIndicator("name")}
+                            </th>
+                            <th onClick={() => sortByField("faction")}>
+                                Faction {renderSortIndicator("faction")}
+                            </th>
+                            <th onClick={() => sortByField("numberOfFighters")}>
+                                Number of fighters {renderSortIndicator("numberOfFighters")}
+                            </th>
+                            <th onClick={() => sortByField("season")}>
+                                Season {renderSortIndicator("season")}
+                            </th>
+                            <th onClick={() => sortByField("rating")}>
+                                Rating {renderSortIndicator("rating")}
+                            </th>
+                        </>
+                    )}
+                    <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                {currentWarbands.length === 0 ? (
+                    <tr>
+                        <td colSpan={screenWidth >= 600 ? 6 : 2}>No warbands found</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {currentWarbands.map((warband) => (
+                ) : (
+                    currentWarbands.map((warband) => (
                         <SearchWarband warband={warband} key={warband.id} />
-                    ))}
-                    </tbody>
-                </table>
-            ) : (
-                <table className="table table-striped dt-responsive dataTable no-footer dtr-inline" width="100%" role="grid">
-                    <thead className="head-row">
-                    <tr role="row">
-                        <th onClick={() => sortByField("name")}>
-                            Name {renderSortIndicator("name")}
-                        </th>
-                        <th onClick={() => sortByField("faction")}>
-                            Faction {renderSortIndicator("faction")}
-                        </th>
-                        <th onClick={() => sortByField("numberOfFighters")}>
-                            Number of fighters {renderSortIndicator("numberOfFighters")}
-                        </th>
-                        <th onClick={() => sortByField("season")}>
-                            Season {renderSortIndicator("season")}
-                        </th>
-                        <th onClick={() => sortByField("rating")}>
-                            Rating {renderSortIndicator("rating")}
-                        </th>
-                        <th>Details</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {currentWarbands.map((warband) => (
-                        <SearchWarband warband={warband} key={warband.id} />
-                    ))}
-                    </tbody>
-                </table>
-            )}
+                    ))
+                )}
+                </tbody>
+            </table>
         </div>
     );
+
 };

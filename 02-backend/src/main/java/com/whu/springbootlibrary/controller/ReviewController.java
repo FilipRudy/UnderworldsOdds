@@ -22,10 +22,9 @@ public class ReviewController {
     public Integer getAverageRatingForWarband(@PathVariable Long warbandId) {
         return reviewService.calculateAverageRatingForWarband(warbandId);
     }
-    @GetMapping("/by-user")
-    public Review getReviewByUserIdAndWarbandId(@RequestBody GetReviewByIdDto getReviewByIdDto) {
-        System.out.println(getReviewByIdDto);
-        return reviewService.getOneByUserIdAndWarbandId(getReviewByIdDto.getUsername(), getReviewByIdDto.getWarbandId());
+    @GetMapping("/user/{warbandId}/{username}")
+    public Review getReviewByUserIdAndWarbandId( @PathVariable Long warbandId, @PathVariable String username) {
+        return reviewService.getOneByUserIdAndWarbandId(username, warbandId);
     }
     @GetMapping("/all/{username}")
     public List<Review> getAllByUsername(@PathVariable String username) {
