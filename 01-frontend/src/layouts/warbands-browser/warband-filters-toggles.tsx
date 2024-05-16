@@ -226,7 +226,7 @@ export const SevenFightersToggle = () => {
         toggleSevenFighters();
       }}
     >
-      7
+      7+
     </button>
   );
 };

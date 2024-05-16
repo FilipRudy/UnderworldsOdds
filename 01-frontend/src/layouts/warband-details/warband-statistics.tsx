@@ -3,7 +3,6 @@ import "../../css/warband-details/warbands-statistics.css";
 import WarbandModel from "../../models/warbands/warband-model";
 import { isAuthTokenValid, request } from "../../axios_helper";
 import {StarsRating} from "../../universal-components/stars-rating";
-import {useParams} from "react-router-dom";
 
 interface WarbandStatisticsProps {
     warband?: WarbandModel;
@@ -64,12 +63,12 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
                     <td>{warband.season}</td>
                 </tr>
                 <tr>
-                    <th>Rating:</th>
+                    <th>Your review:</th>
                     <td>
                         {isValidToken ? (
                             <StarsRating onRateChange={handleRatingChange} />
                         ) : (
-                            "Login to see details"
+                            "Login to add review"
                         )}
                     </td>
                 </tr>
