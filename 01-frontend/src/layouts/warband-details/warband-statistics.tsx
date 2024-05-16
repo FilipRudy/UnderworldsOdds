@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../../css/warband-details/warbands-statistics.css";
 import WarbandModel from "../../models/warbands/warband-model";
 import { isAuthTokenValid, request } from "../../axios_helper";
-import {StarsRating} from "../../universal-components/stars-rating";
+import { StarsRating } from "../../universal-components/stars-rating";
+import {decodeToken} from "../util/helpers/hooks/decode-token";
 
 interface WarbandStatisticsProps {
     warband?: WarbandModel;
@@ -10,6 +11,8 @@ interface WarbandStatisticsProps {
 
 export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband }) => {
     const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
+    const [userReview, setUserReview] = useState<any>(null);
+    const [username, setUsername] = useState<string | null>(null);
 
     useEffect(() => {
         const checkAuthTokenValidity = async () => {
@@ -18,7 +21,31 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
         };
 
         checkAuthTokenValidity();
+
+        const token = localStorage.getItem("auth_token");
+        if (token) {
+            const decodedToken = decodeToken(token);
+            if (decodedToken) {
+                const username = decodedToken.sub;
+                setUsername(username);
+            }
+        }
     }, []);
+
+    useEffect(() => {
+        const fetchUserReview = async () => {
+            try {
+                const response = await request("GET", `/review/user/${warband?.id}/${username}`, {});
+                setUserReview(response.data.starsAmount);
+            } catch (error:any) {
+                console.error("Error fetching user review:", error.response?.data?.message || error.message);
+            }
+        };
+
+        if (warband && username) {
+            fetchUserReview();
+        }
+    }, [warband, username]);
 
     const handleRatingChange = async (rating: number) => {
         try {
@@ -27,7 +54,6 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
                 starsAmount: rating
             });
 
-            console.log("Review added successfully:", response.data);
         } catch (error:any) {
             console.error("Error adding review:", error.response?.data?.message || error.message);
         }
@@ -66,7 +92,7 @@ export const WarbandStatistics: React.FC<WarbandStatisticsProps> = ({ warband })
                     <th>Your review:</th>
                     <td>
                         {isValidToken ? (
-                            <StarsRating onRateChange={handleRatingChange} />
+                            <StarsRating onRateChange={handleRatingChange} defaultRating={userReview} />
                         ) : (
                             "Login to add review"
                         )}

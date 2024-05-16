@@ -26,7 +26,7 @@ public interface WarbandRepository extends JpaRepository<Warband, Integer> {
             "(:fourFighters = true AND w.numberOfFighters = 4) OR " +
             "(:fiveFighters = true AND w.numberOfFighters = 5) OR " +
             "(:sixFighters = true AND w.numberOfFighters = 6) OR " +
-            "(:sevenFighters = true AND w.numberOfFighters = 7) OR " +
+            "(:sevenFighters = true AND w.numberOfFighters >= 7) OR " +
             "(:threeFighters = false AND :fourFighters = false AND :fiveFighters = false AND :sixFighters = false AND :sevenFighters = false)) AND " +
             "((:shadespire = true AND w.season = 'Shadespire') OR " +
             "(:nightvault = true AND w.season = 'Nightvault') OR " +

@@ -40,7 +40,7 @@ public class WarbandService {
 
             for (Warband warband : unfilteredWarbands) {
 
-                    if (warband.getRating() != null && warband.getRating() >= rating) {
+                    if (warband.getRating() != null && warband.getRating().equals(rating)) {
                         filteredWarbands.add(warband);
                     }
 
@@ -54,12 +54,16 @@ public class WarbandService {
 
         List<Warband> filteredWarbands = new ArrayList<>();
 
-        for (Warband warband : unfilteredWarbands) {
-
-            if (Objects.equals(this.reviewService.calculateAverageRatingForWarband(warband.getId()), rating)) {
-                filteredWarbands.add(warband);
+        if (rating != 0) {
+            for (Warband warband : unfilteredWarbands) {
+                if (Objects.equals(this.reviewService.calculateAverageRatingForWarband(warband.getId()), rating)) {
+                    filteredWarbands.add(warband);
+                }
             }
+        } else {
+            filteredWarbands.addAll(unfilteredWarbands);
         }
+
         return filteredWarbands;
 
     }

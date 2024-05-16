@@ -18,15 +18,12 @@ export const isAuthTokenValid = async () => {
             });
 
             if (response.ok) {
-                const isValid = await response.json();
-                console.log("Token validation status:", isValid);
-                return isValid;
+                return  await response.json();
+
             } else {
-                console.error("Token validation failed:", response.statusText);
                 return false;
             }
         } catch (error) {
-            console.error("Error validating token:", error);
             return false;
         }
 
