@@ -107,14 +107,13 @@ public class UserService {
         }
 
         String toAddress = user.getEmail();
-        String fromAddress = "Youremailaddress";
-        String senderName = "Yourcompanyname";
+        String fromAddress = "underworlds.odds@gmail.com";
+        String senderName = "Underworlds-odds";
         String subject = "Please verify your registration";
         String content = "Dear [[name]],<br>"
                 + "Please click the link below to verify your registration:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
-                + "Thank you,<br>"
-                + "Your company name.";
+                + "Thank you,<br>";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -163,14 +162,13 @@ public class UserService {
         userRepository.save(user);
 
         String toAddress = user.getEmail();
-        String fromAddress = "Youremailaddress";
-        String senderName = "Yourcompanyname";
-        String subject = "Please verify your registration";
+        String fromAddress = "underworlds.odds@gmail.com";
+        String senderName = "Underworlds-odds";
+        String subject = "New password";
         String content = "Dear [[name]],<br>"
-                + "Please click the link below to verify your registration:<br>"
+                + "Below is your new password:<br>"
                 + "\"[[URL]]\""
-                + "Thank you,<br>"
-                + "Your company name.";
+                + "You can change it in your profile<br>";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
